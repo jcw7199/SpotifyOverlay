@@ -36,17 +36,17 @@ def getActiveDeviceID():
 
     elif status == 200:
         devices = json.loads(buffer.getvalue().decode('utf-8'))['devices']
-        print("devices: ", devices)
+        #print("devices: ", devices)
         for dev in devices:
             if dev['is_active'] == True:
-                print("exit")
+                #print("exit")
                 return (dev['id'], True)
             
         if len(devices) > 0:
-            print("exit")
+            #print("exit")
             return (devices[0]['id'], False)
         else:
-            print("exit")
+            #print("exit")
             return(None, False)
     
     else:
@@ -141,7 +141,7 @@ def getPlaybackState():
         status = c.getinfo(c.RESPONSE_CODE)
         c.close()        
     except pycurl.error:
-        print("exception: ", pycurl.error)
+        print("get playback state exception: ", pycurl.error)
         return None
 
     if status == 401:
@@ -168,7 +168,7 @@ def startPlayback():
         headers = []
         headers.append(authHeader[0])
         headers.append("Content-Type: application/json")
-        print(headers)
+        #print(headers)
         
         params = { 'device_id': id }
         
@@ -403,7 +403,7 @@ def getShuffleState():
         status = c.getinfo(c.RESPONSE_CODE)
         c.close()        
     except pycurl.error:
-        print("exception: ", pycurl.error)
+        print("get shuffle state exception: ", pycurl.error)
         return None
     
     if status == 401:
@@ -516,7 +516,7 @@ def getCurrentPlayingType():
         status = c.getinfo(c.RESPONSE_CODE)
         c.close()
     except pycurl.error:
-        print("exception: ", pycurl.error)
+        print("get current playing type exception: ", pycurl.error)
         return None
     
     if status == 401:
@@ -529,7 +529,7 @@ def getCurrentPlayingType():
         print("----------------------------------------------")
         return None
     else:
-        print("get current playing type error: ", status, " - ", buffer.getvalue().decode('utf-8'))
+        #print("get current playing type error: ", status, " - ", buffer.getvalue().decode('utf-8'))
         return None
 
 def getCurrentSongID():
@@ -570,6 +570,9 @@ def getCurrentSongID():
 def getCurrentSongAndArtist():
     global currentSong
     acces_token = auth.getAuthToken()
+    if acces_token == None:
+        return "Restart Spotify Overlay"
+    
     authHeader =  [f"Authorization: Bearer {acces_token}"]
     buffer = BytesIO()
     c = pycurl.Curl()
@@ -583,7 +586,7 @@ def getCurrentSongAndArtist():
     elif playingType == 'track':
         c.setopt(c.URL, "https://api.spotify.com/v1/me/player/currently-playing")
     else:
-        return None
+        return "No song playing"
 
     c.setopt(c.WRITEDATA, buffer)
     c.setopt(c.HTTPHEADER, authHeader)
@@ -608,10 +611,10 @@ def getCurrentSongAndArtist():
         elif getCurrentPlayingType() == "episode":
             currentSong = response['item']['name'] + " - " + response['item']['show']['name']
         else:
-            return currentSong
+            currentSong = "None"
     else:
         print("get current song error: ", status, " - ", buffer.getvalue().decode('utf-8'))
-    
+        currentSong = "None"
     return currentSong
 
 def getSongLikedState():  
@@ -636,7 +639,7 @@ def getSongLikedState():
         status = c.getinfo(c.RESPONSE_CODE)
         c.close()        
     except pycurl.error:
-        print("exception: ", pycurl.error)
+        print("get liked state exception: ", pycurl.error)
         return None
 
     if status == 401:
@@ -777,7 +780,7 @@ def getRepeatState():
         status = c.getinfo(c.RESPONSE_CODE)
         c.close()        
     except pycurl.error:
-        print("exception: ", pycurl.error)
+        print("get repeat state exception: ", pycurl.error)
         return None
 
     if status == 401:

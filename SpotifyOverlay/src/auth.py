@@ -31,20 +31,20 @@ verifier = None
 auth_code = None
 refreshing = False
 def getCodeVerifier():
-  global verifier
-  length = random.randint(64, 64)
-  rand_bytes = os.urandom(length)
-  verifier =  base64.urlsafe_b64encode(rand_bytes).decode('utf-8').replace('=', '').replace('+', '-').replace('/', '_')
-  print("VERIFIER: ", verifier)
-  return verifier
+    global verifier
+    length = random.randint(64, 64)
+    rand_bytes = os.urandom(length)
+    verifier =  base64.urlsafe_b64encode(rand_bytes).decode('utf-8').replace('=', '').replace('+', '-').replace('/', '_')
+    print("VERIFIER: ", verifier)
+    return verifier
 
 def getCodeChallenge():
-  code_challenge_digest = hashlib.sha256(getCodeVerifier().encode('utf-8')).digest()
-  code_challenge = base64.urlsafe_b64encode(code_challenge_digest).decode('utf-8')
-  code_challenge = code_challenge.replace('=', '')
+    code_challenge_digest = hashlib.sha256(getCodeVerifier().encode('utf-8')).digest()
+    code_challenge = base64.urlsafe_b64encode(code_challenge_digest).decode('utf-8')
+    code_challenge = code_challenge.replace('=', '')
 
-  print("CODE CHALLENGE", code_challenge)
-  return code_challenge
+    print("CODE CHALLENGE", code_challenge)
+    return code_challenge
 
 def getAuthCode():
     global authUrl
@@ -86,19 +86,30 @@ def getTokens():
     c.setopt(c.URL, tokenUrl)
     c.setopt(c.WRITEDATA, buffer)
     c.setopt(c.POSTFIELDS, urllib.parse.urlencode(tokenParams))
-    c.setopt(c.HTTPHEADER, tokenHeaders)
-    c.perform()
-    status = c.getinfo(c.RESPONSE_CODE)
-    c.close()
-      
+    
+    try:
+        c.setopt(c.HTTPHEADER, tokenHeaders)
+        c.perform()
+        status = c.getinfo(c.RESPONSE_CODE)
+        c.close()
+    except pycurl.error:
+        print("token request exception", pycurl.error)
+        return None
+     
     print("TOKENS REQUEST STATUS: ", status)
+    if status == 500:
+        return None
+
     tokens = json.loads(buffer.getvalue().decode('utf-8'))
     print(tokens)
 
-
-    auth_token = tokens['access_token']
-    refresh_token = tokens['refresh_token']
-
+    try:
+        auth_token = tokens['access_token']
+        refresh_token = tokens['refresh_token']
+    except KeyError:
+        print("key error")
+        return None
+    
     print("ACCESS TOKEN: ", tokens['access_token'])
 
     print("REFRESH TOKEN: ", tokens['refresh_token'])
@@ -108,43 +119,50 @@ def getTokens():
 def getNewTokens():
    global auth_token, refresh_token
    if refresh_token != None:
-      #get new token using refresh token
+        #get new token using refresh token
     
-      buffer = BytesIO()
-      c = pycurl.Curl()
+        buffer = BytesIO()
+        c = pycurl.Curl()
 
-      refreshTokenParams = {
-        'grant_type': "refresh_token",
-        'refresh_token': refresh_token,
-        'client_id': clientId,
-      }
+        refreshTokenParams = {
+            'grant_type': "refresh_token",
+            'refresh_token': refresh_token,
+            'client_id': clientId,
+        }
 
-      tokenHeaders = ["Content-Type: application/x-www-form-urlencoded"]
+        tokenHeaders = ["Content-Type: application/x-www-form-urlencoded"]
 
-      c.setopt(c.URL, tokenUrl)
-      c.setopt(c.WRITEDATA, buffer)
-      c.setopt(c.POSTFIELDS, urllib.parse.urlencode(refreshTokenParams))
-      c.setopt(c.HTTPHEADER, tokenHeaders)
-      c.perform()
-      status = c.getinfo(c.RESPONSE_CODE)
-      c.close()
-        
-      print("TOKENS REQUEST STATUS: ", status)
-      tokens = json.loads(buffer.getvalue().decode('utf-8'))
-      print(tokens)
+        c.setopt(c.URL, tokenUrl)
+        c.setopt(c.WRITEDATA, buffer)
+        c.setopt(c.POSTFIELDS, urllib.parse.urlencode(refreshTokenParams))
+        c.setopt(c.HTTPHEADER, tokenHeaders)
+        try:
+            c.perform()
+            status = c.getinfo(c.RESPONSE_CODE)
+            c.close()
+        except pycurl.error:
+            print("auth exception")
+            return None
+        print("TOKENS REQUEST STATUS: ", status)
+        tokens = json.loads(buffer.getvalue().decode('utf-8'))
+        print(tokens)
 
 
-      auth_token = tokens['access_token']
-      refresh_token = tokens['refresh_token']
+        try:
+            auth_token = tokens['access_token']
+            refresh_token = tokens['refresh_token']
+        except KeyError:
+            print("key error")
+            return None
 
-      print("ACCESS TOKEN: ", tokens['access_token'])
+        print("ACCESS TOKEN: ", tokens['access_token'])
 
-      print("REFRESH TOKEN: ", tokens['refresh_token'])
-
-      return auth_token
+        print("REFRESH TOKEN: ", tokens['refresh_token'])
+  
+        return auth_token
    else:
-      print("get new auth and refresh token")
-        #getTokens()
+        print("get new auth and refresh token")
+            #getTokens()
       
 def getAuthToken():
    global auth_token

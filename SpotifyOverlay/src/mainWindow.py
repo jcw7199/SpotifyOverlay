@@ -21,6 +21,12 @@ def closeWindow():
     running = False
     window.close()
 
+def minimizeWindow():
+    window.setWindowFlag(Qt.WindowMinimizeButtonHint, True)
+    window.setWindowFlag(Qt.WindowMaximizeButtonHint, True)
+    window.showNormal()
+    window.showMinimized()
+
 def moveWindow_mousePress(self=QMainWindow, event=QMouseEvent):
     global offset
     if event.button() == Qt.LeftButton:
@@ -45,7 +51,7 @@ def updateSongLabelText(label=QLabel):
     while running == True:
         time.sleep(3)
         text = getSpotify.getCurrentSongAndArtist()
-        print(x , " = updating song", text)
+        #print(x , " = updating song", text)
         if text != None:
             if len(text) > 70:
                 text = text[0:70] + "..."
@@ -60,7 +66,7 @@ def updatePauseButtonText(button=QPushButton):
     while running == True:
         time.sleep(3)
         is_playing = getSpotify.getPlaybackState()
-        print(x, " = updating pause ", is_playing)
+        #print(x, " = updating pause ", is_playing)
         if is_playing == True:
             button.pyqtConfigure(text="Pause")
         else:
@@ -75,7 +81,7 @@ def updateLikeButtonText(button=QPushButton):
     while running == True:
         time.sleep(3)
         state =  getSpotify.getSongLikedState() 
-        print(x, " = updating like ", state)
+        #print(x, " = updating like ", state)
         if state == True:
             button.pyqtConfigure(text="Unlike")
         elif state == False:
@@ -105,7 +111,7 @@ def updateRepeatButtonText(button=QPushButton):
     while running == True:
         time.sleep(3)
         state = getSpotify.getRepeatState()
-        print(x, " = updating repeat: ", state)
+        #print(x, " = updating repeat: ", state)
 
         if state == "off":
             button.pyqtConfigure(text="Repeat On")
@@ -122,7 +128,7 @@ class Labels:
     
     def initLabels():
         Labels.currentSong.setAlignment(Qt.AlignCenter)
-        layout.addWidget(Labels.currentSong, 0, 0, 1, 9)
+        layout.addWidget(Labels.currentSong, 0, 0, 1, 10)
         Labels.colorLabels(Labels.currentSong, "black", "#06F00F")
 
         
@@ -152,6 +158,8 @@ class Buttons:
 
     repeatButton = QPushButton("Repeat", centralWidget)
     
+    minimzeButton = QPushButton("Minimize", centralWidget)
+
     quitButton = QPushButton("Quit", centralWidget)
 
     def initButtons():
@@ -179,11 +187,15 @@ class Buttons:
         layout.addWidget(Buttons.repeatButton, 2, 7)
         Buttons.repeatButton.clicked.connect(getSpotify.toggleRepeat)
 
-        layout.addWidget(Buttons.quitButton, 2, 8)
+        layout.addWidget(Buttons.minimzeButton, 2, 8)
+        Buttons.minimzeButton.clicked.connect(minimizeWindow)
+
+        layout.addWidget(Buttons.quitButton, 2, 9)
         Buttons.quitButton.clicked.connect(closeWindow)
 
         buttonList = [Buttons.likeButton, Buttons.volumeMinusButton, Buttons.volumePlusButton, Buttons.previousButton, 
-                      Buttons.pauseButton, Buttons.nextButton, Buttons.shuffleButton, Buttons.repeatButton]
+                      Buttons.pauseButton, Buttons.nextButton, Buttons.shuffleButton, Buttons.repeatButton, 
+                      Buttons.minimzeButton]
 
         for btn in buttonList:
             Buttons.colorButtons(btn, "#06F00F", "black")
@@ -216,7 +228,7 @@ def startSpotify():
             flags = Qt.WindowFlags(Qt.WindowStaysOnTopHint)
             msg.setText("No device found, please start spotify")
             msg.setWindowFlags(flags)
-            #msg.show()
+            msg.show()
             msg.exec_()
             while getSpotify.getActiveDevice()[0] == None:
                 print("waiting for spotify to start...")
@@ -241,8 +253,7 @@ def main():
     startSpotify()
 
     window.show()
-    #PAUSE threadds if device goes inactive
-    #toss updates into event loop that resets labels at the beginning of every song. i.e, update like button at the start of the next song
+
     updateSongTh = threading.Thread(target=updateSongLabelText, kwargs={'label': Labels.currentSong})
     updateSongTh.daemon = True
     updateSongTh.start()

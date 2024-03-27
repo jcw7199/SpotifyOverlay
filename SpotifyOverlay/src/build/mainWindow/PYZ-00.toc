@@ -1,5 +1,5 @@
-('C:\\Users\\Mr. Nobody\\Documents\\Projects\\SpotifyOverlay - '
- 'git\\SpotifyOverlay\\SpotifyOverlay\\src\\build\\mainWindow\\PYZ-00.pyz',
+('C:\\Users\\Mr. '
+ 'Nobody\\Documents\\Projects\\SpotifyOverlay\\module\\build\\mainWindow\\PYZ-00.pyz',
  [('PyQt5',
    'C:\\Users\\Mr. '
    'Nobody\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python312\\site-packages\\PyQt5\\__init__.py',
@@ -49,8 +49,8 @@
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.12_3.12.752.0_x64__qbz5n2kfra8p0\\Lib\\ast.py',
    'PYMODULE'),
   ('auth',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\SpotifyOverlay - '
-   'git\\SpotifyOverlay\\SpotifyOverlay\\src\\auth.py',
+   'C:\\Users\\Mr. '
+   'Nobody\\Documents\\Projects\\SpotifyOverlay\\module\\auth.py',
    'PYMODULE'),
   ('base64',
    'C:\\Program '
@@ -233,8 +233,8 @@
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.12_3.12.752.0_x64__qbz5n2kfra8p0\\Lib\\ftplib.py',
    'PYMODULE'),
   ('getSpotify',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\SpotifyOverlay - '
-   'git\\SpotifyOverlay\\SpotifyOverlay\\src\\getSpotify.py',
+   'C:\\Users\\Mr. '
+   'Nobody\\Documents\\Projects\\SpotifyOverlay\\module\\getSpotify.py',
    'PYMODULE'),
   ('getopt',
    'C:\\Program '
@@ -545,8 +545,8 @@
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.12_3.12.752.0_x64__qbz5n2kfra8p0\\Lib\\selectors.py',
    'PYMODULE'),
   ('server',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\SpotifyOverlay - '
-   'git\\SpotifyOverlay\\SpotifyOverlay\\src\\server.py',
+   'C:\\Users\\Mr. '
+   'Nobody\\Documents\\Projects\\SpotifyOverlay\\module\\server.py',
    'PYMODULE'),
   ('shlex',
    'C:\\Program '
