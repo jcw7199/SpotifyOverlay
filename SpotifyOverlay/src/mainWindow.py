@@ -19,6 +19,7 @@ offset = None
 def closeWindow():
     global running
     running = False
+    getSpotify.togglePlayback()
     window.close()
 
 def minimizeWindow():
