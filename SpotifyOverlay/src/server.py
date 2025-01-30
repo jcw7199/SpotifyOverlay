@@ -15,7 +15,7 @@ def get_auth_code():
     serv.bind(ADDR)
     serv.listen(5)
     #print("server listening")
-    serv.settimeout(15)
+    serv.settimeout(120)
     while True:
         communication_socket, address = serv.accept()
         #print("connected to ", address )

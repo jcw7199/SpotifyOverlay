@@ -36,7 +36,7 @@ class Labels(QLabel):
     def __init__(self, text, alignment, parent=None):
         QLabel.__init__(self)
         self.setText(text)
-        self.setAlignment(Qt.AlignCenter)
+        self.setAlignment(alignment)
         self.setParent(parent)
     
 
@@ -94,6 +94,7 @@ class Window(QMainWindow):
         
         #initialize buttons and widgets
         self.currentSong = Labels("Current Song", Qt.AlignCenter, self.myWidget)
+        self.currentDevice = Labels("Playing on...",  Qt.AlignCenter, self.myWidget)
 
         self.likeButton = Buttons("Like", getSpotify.toggleLikeSong, self.myWidget)
         self.restartButton = Buttons("Restart", getSpotify.restartSong, self.myWidget)
@@ -118,10 +119,12 @@ class Window(QMainWindow):
         Buttons.colorButton(self.quitButton, "#D80A22", "white")
 
         Labels.colorLabel(self.currentSong, "black", "#06F00F")
+        Labels.colorLabel(self.currentDevice, "black", "#06F00F")
         
         #add widgets to layout
-        self.myLayout.addWidget(self.currentSong, 0, 0, 1, 10)
-
+        self.myLayout.addWidget(self.currentSong, 0, 0, 1, 11)
+        self.myLayout.addWidget(self.currentDevice, 0, 7, 1, 3)
+        
         self.myLayout.addWidget(self.likeButton, 2, 0)
         self.myLayout.addWidget(self.restartButton, 2, 1)
         self.myLayout.addWidget(self.volumeMinusButton, 2, 2)
@@ -181,7 +184,6 @@ def changeVolume(upOrDown):
         else:
             getSpotify.volumeDown()
 
-
 def updateSongLabelText(label=QLabel):
     global running
     x = 0
@@ -197,6 +199,25 @@ def updateSongLabelText(label=QLabel):
         else:
             label.pyqtConfigure(text="Can't get current song or no song is currently playing")
 
+def updateDeviceLabelText(label=QLabel):
+    global running
+    x = 0
+    while running == True:
+        time.sleep(3)
+        device = getSpotify.getActiveDevice()
+        print(device)
+        name = "Playing on "
+        if device != None:
+            devName = device[0]['name']
+            if len(devName) > 10:
+                devName = devName[0:10] + "..."
+            
+            name += devName
+            print("NAME: " + name)
+            label.pyqtConfigure(text=name)
+        else:
+            label.pyqtConfigure(text="Can't get current device")
+        
 def updatePauseButtonText(button=QPushButton):
     global running
     x = 0
@@ -306,7 +327,10 @@ def main():
     updateSongTh.daemon = True
     updateSongTh.start()
 
-    
+    updateDeviceTh = threading.Thread(target=updateDeviceLabelText, kwargs={'label': myWindow.currentDevice})
+    updateDeviceTh.daemon = True
+    updateDeviceTh.start()
+
     updatePauseTh = threading.Thread(target=updatePauseButtonText, kwargs={'button': myWindow.pauseButton})
     updatePauseTh.daemon = True
     updatePauseTh.start()
