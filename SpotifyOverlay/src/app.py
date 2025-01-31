@@ -12,24 +12,25 @@ app = QApplication([])
 
 running = True
 threads = []
-offset = None
+msPerHour = 3600000
+msPerMinute = 60000
+msPerSecond = 1000
 
 
 
+class WorkerThread(QThread):
+    # Signal to update progress
+    message_signal = pyqtSignal(str)
+    def __init__(self, bar, parent = ...):
+        super().__init__(parent)
+        self.bar = bar
 
-
-class Worker(QObject):
-    finished = pyqtSignal(int)
-    progress = pyqtSignal(int)
-
-
-    def __init__(self, target_function):
-        super().__init__()
-        self.target_function = target_function
 
     def run(self):
-        # Call the target function when the thread starts
-        self.target_function()
+        while True:
+            updateSongProgress(bar=self.bar)  # To avoid flooding with too many "Hello"s
+            self.message_signal.emit("Hello")
+
 
 class Labels(QLabel):   
     
@@ -43,7 +44,7 @@ class Labels(QLabel):
 
     def colorLabel(label=QLabel, background_color=str, textColor=str):
         style = "background-color : " + background_color  
-        #print(textColor)
+
         if textColor != str:
             style += str("; color: " + textColor)
           
@@ -64,6 +65,32 @@ class Buttons(QPushButton):
           
         button.setStyleSheet(style) 
 
+class Bar(QProgressBar):
+
+    def __init__(self, parent = ...):
+        super().__init__(parent)
+        self.setRange(0, 100)
+        
+
+    def mouseReleaseEvent(self, event):
+        self.position = event.pos()
+        self.position
+
+        text = self.text()
+        font = self.font()
+        metrics = QFontMetrics(font)
+        text_width = metrics.width(text)
+
+        #print(text_width)
+        seekToPosition(event.pos().x()/(self.width() - text_width))
+
+    def colorBar(bar=QProgressBar, background_color=str, textColor=str):
+            style = "background-color : " + background_color  
+            if textColor != str:
+                style += str("; color: " + textColor)
+            
+            bar.setStyleSheet(style)
+
 class Widget(QWidget):
     def __init__(self):
         super().__init__()   
@@ -74,6 +101,24 @@ class Layout(QGridLayout):
     def __init__(self):
         super().__init__()
 
+class WorkerThread(QThread):
+    progress_updated = pyqtSignal(int)
+
+    def __init__(self, bar):
+        super().__init__()
+        self.bar = bar
+
+    def do_work(self):
+        while running == True:
+            prog = updateSongProgress(bar=self.bar)
+            self.progress_updated.emit(prog)
+            
+    def run(self):
+        """Override run method
+        """
+        self.do_work()
+        
+
 class Window(QMainWindow):
 
     def __init__(self, flags):
@@ -82,8 +127,9 @@ class Window(QMainWindow):
         self.setWindowFlags(flags)
         self.setWindowOpacity(0.7)
         self.setStyleSheet("background-color: black")
-        self.initUI()
-
+        self.offset = None
+        self.initUI()   
+    
     def initUI(self):
 
         self.myWidget = Widget()
@@ -93,8 +139,8 @@ class Window(QMainWindow):
         self.setCentralWidget(self.myWidget)
         
         #initialize buttons and widgets
-        self.currentSong = Labels("Current Song", Qt.AlignCenter, self.myWidget)
-        self.currentDevice = Labels("Playing on...",  Qt.AlignCenter, self.myWidget)
+        self.currentSong = Labels("Current Song", Qt.AlignmentFlag.AlignCenter, self.myWidget)
+        self.currentDevice = Labels("Playing on...",  Qt.AlignmentFlag.AlignCenter, self.myWidget)
 
         self.likeButton = Buttons("Like", getSpotify.toggleLikeSong, self.myWidget)
         self.restartButton = Buttons("Restart", getSpotify.restartSong, self.myWidget)
@@ -108,6 +154,9 @@ class Window(QMainWindow):
         self.minimzeButton = Buttons("-", self.minimizeWindow, self.myWidget)
         self.quitButton = Buttons("X", self.closeWindow, self.myWidget)
         
+        self.progressbar = Bar(parent=self.myWidget)
+        
+
         #color label and buttons
         buttonList = [self.likeButton, self.restartButton, self.volumeMinusButton, self.volumePlusButton, 
                       self.previousButton, self.pauseButton, self.nextButton, self.shuffleButton, self.repeatButton,
@@ -121,6 +170,7 @@ class Window(QMainWindow):
         Labels.colorLabel(self.currentSong, "black", "#06F00F")
         Labels.colorLabel(self.currentDevice, "black", "#06F00F")
         
+        Bar.colorBar(self.progressbar, "#D80A22", "white")
         #add widgets to layout
         self.myLayout.addWidget(self.currentSong, 0, 0, 1, 11)
         self.myLayout.addWidget(self.currentDevice, 0, 7, 1, 3)
@@ -137,18 +187,29 @@ class Window(QMainWindow):
         self.myLayout.addWidget(self.minimzeButton, 2, 9)
         self.myLayout.addWidget(self.quitButton, 2, 10)
 
+        self.myLayout.addWidget(self.progressbar, 3, 0, 1, 11)
+
+        self.progressbar.setRange(0, 100)
+        self.progressbar.setValue(0)
+        self.progressbar.setFormat("0:00")
+        self.progressbar.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+
+    def start_work(self):
+        self.thread = WorkerThread(self.progressbar)
+        self.thread.progress_updated.connect(self.progressbar.setValue)
+        self.thread.start()
+
+
     def mousePressEvent(self, event):
-        global offset
         if event.button() == Qt.LeftButton:
-            offset = event.pos()
-    
+            self.offset = event.pos()
+            
     def mouseMoveEvent(self, event):
-        if offset != None:
-            self.move(self.pos() - offset + event.pos())    
+        if self.offset != None:
+            self.move(self.pos() - self.offset + event.pos())    
 
     def mouseReleaseEvent(self, event):
-        global offset
-        offset = None
+        self.offset = None
     
     def setGeometry(self, x, y, w, h):
         super().setGeometry(x, y, w, h)
@@ -164,6 +225,59 @@ class Window(QMainWindow):
         running = False
         getSpotify.pausePlayback()
         self.close()
+
+def formatTime(milliseconds):
+
+    
+    seconds = 0
+    minutes = 0
+    hours = 0
+    if (milliseconds > msPerHour):
+    
+        hours = milliseconds / msPerHour
+
+        minutes = hours - int(hours)
+        minutes *= 60
+
+        seconds = minutes - int(minutes)
+        seconds *= 60
+        
+        hours = int (hours)
+        minutes = int (minutes)
+        seconds = int (seconds)
+    else:
+        hours = 0
+        if (milliseconds > msPerMinute):
+            minutes = (milliseconds / 60000)
+            seconds = minutes - int(minutes)
+            seconds *= 60
+
+            minutes = int(minutes)
+            seconds = int(seconds)
+
+
+        else:
+            minutes = 0
+            seconds = int(milliseconds/msPerSecond)
+
+    #print("HOUR", hours, " Min", minutes, " SEC", seconds)
+    
+    
+    if (seconds < 10):
+        seconds = "0" + str(seconds)
+
+    
+    if (milliseconds > msPerHour and minutes < 10):
+        minutes = "0" + str(minutes)
+        print('MINUTES', minutes)
+
+
+    if (milliseconds >= msPerHour):
+        t = str(hours) + ":" + str(minutes) + ":" + str(seconds)
+    else:
+        t = str(minutes) + ":" + str(seconds)
+
+    return t
 
 def changeVolume(upOrDown):
     changeable = getSpotify.volumeChanageable()
@@ -184,47 +298,88 @@ def changeVolume(upOrDown):
         else:
             getSpotify.volumeDown()
 
-def updateSongLabelText(label=QLabel):
+def seekToPosition(position):
+    duration = getSpotify.getProgress()[1]
+
+    newPosition =int(position * duration);
+
+    getSpotify.seekToPosition(newPosition)   
+
+def updateSongLabelText(label=Labels):
     global running
     x = 0
     while running == True:
         time.sleep(3)
-        text = getSpotify.getCurrentSongAndArtist()
-        #print(x , " = updating song", text)
-        if text != None:
-            if len(text) > 70:
-                text = text[0:70] + "..."
-            label.pyqtConfigure(text=text)
-            x += 1
+        song, artist = getSpotify.getCurrentSongAndArtist()
+        
+        txt = ""
+
+
+        if song != None:
+            if len(song) > 50:
+                song = song[0:50] + "..."
+            
+        if artist != None:
+            if len(artist) > 50:
+                artist = artist[0:50] + "..."
         else:
             label.pyqtConfigure(text="Can't get current song or no song is currently playing")
 
-def updateDeviceLabelText(label=QLabel):
+        txt = song + " - " + artist
+
+        label.pyqtConfigure(text=txt)
+
+def updateDeviceLabelText(label=Labels):
     global running
     x = 0
     while running == True:
         time.sleep(3)
         device = getSpotify.getActiveDevice()
-        print(device)
+        #print(device)
         name = "Playing on "
         if device != None:
             devName = device[0]['name']
-            if len(devName) > 10:
-                devName = devName[0:10] + "..."
+
+            if devName != None:
+                if len(devName) > 10:
+                    devName = devName[0:10] + "..."
+                
+                name += devName
+                #print("NAME: " + name)
+                label.pyqtConfigure(text=name)
+            else:
+                label.pyqtConfigure(text="Can't get current device")
+
+def updateSongProgress(bar=Bar):
+       
+    progress, duration = getSpotify.getProgress()
+    
+    #print("P: ", progress, " D: ", duration)   
+    if (progress != None and duration != None):
+        if (duration > msPerHour and progress < msPerHour):
+            formattedTime = " 00:"
+            if (progress < msPerMinute * 10):
+                formattedTime += " 0"
             
-            name += devName
-            print("NAME: " + name)
-            label.pyqtConfigure(text=name)
+            formattedTime += formatTime(progress) + " / " + formatTime(duration)
+
         else:
-            label.pyqtConfigure(text="Can't get current device")
+            formattedTime = formatTime(progress) + " / " + formatTime(duration)
+
+        bar.setFormat(formattedTime)
         
-def updatePauseButtonText(button=QPushButton):
+        if (bar.value() >= 100):
+            return 0
+        else:
+            return (int(round((progress/duration) * 100)))
+
+
+def updatePauseButtonText(button=Buttons):
     global running
     x = 0
     while running == True:
         time.sleep(3)
         is_playing = getSpotify.getPlaybackState()
-        #print(x, " = updating pause ", is_playing)
         if is_playing == True:
             button.pyqtConfigure(text="Pause")
         else:
@@ -233,13 +388,12 @@ def updatePauseButtonText(button=QPushButton):
  
         x += 1
 
-def updateLikeButtonText(button=QPushButton):
+def updateLikeButtonText(button=Buttons):
     global running
     x = 0
     while running == True:
         time.sleep(3)
         state =  getSpotify.getSongLikedState() 
-        #print(x, " = updating like ", state)
         if state == True:
             button.pyqtConfigure(text="Unlike")
         elif state == False:
@@ -249,7 +403,7 @@ def updateLikeButtonText(button=QPushButton):
 
         x += 1
 
-def updateShuffleButtonText(button=QPushButton):
+def updateShuffleButtonText(button=Buttons):
     global running
     x = 0
     while running == True:
@@ -263,13 +417,12 @@ def updateShuffleButtonText(button=QPushButton):
             button.pyqtConfigure(text="Can't shuffle")
         x += 1
 
-def updateRepeatButtonText(button=QPushButton):
+def updateRepeatButtonText(button=Buttons):
     global running
     x = 0
     while running == True:
         time.sleep(3)
         state = getSpotify.getRepeatState()
-        #print(x, " = updating repeat: ", state)
 
         if state == "off":
             button.pyqtConfigure(text="Repeat On")
@@ -283,7 +436,6 @@ def updateRepeatButtonText(button=QPushButton):
 
 def startSpotify():
     restart = getSpotify.getActiveDevice()
-    #print(restart)
 
     if restart[0] != None:
         #("starting spotify... ", restart)
@@ -313,15 +465,14 @@ def main():
 
     myWindow = Window(flags)
     myWindow.setGeometry(500, 500, 50, 30)
-
-
+    
     startSpotify()
 
-    myWindow.show()
+    myWindow.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
 
-    #updateSongTh = Worker(updateSongLabelText)
-    #updateSongTh.start()
-    #threads.append(updateSongTh)
+    myWindow.show()
+        
+    myWindow.start_work()
 
     updateSongTh = threading.Thread(target=updateSongLabelText, kwargs={'label': myWindow.currentSong})
     updateSongTh.daemon = True
@@ -330,6 +481,11 @@ def main():
     updateDeviceTh = threading.Thread(target=updateDeviceLabelText, kwargs={'label': myWindow.currentDevice})
     updateDeviceTh.daemon = True
     updateDeviceTh.start()
+
+    #updateProgressTh = threading.Thread(target=updateSongProgress, kwargs={'bar': myWindow.progressbar})
+    #updateProgressTh.daemon = True
+    #updateProgressTh.start()
+
 
     updatePauseTh = threading.Thread(target=updatePauseButtonText, kwargs={'button': myWindow.pauseButton})
     updatePauseTh.daemon = True

@@ -89,6 +89,202 @@ def getActiveDevice():
         #print("Get active device id error: ", status)
         return(None, None)
 
+def getCurrentPlayingType():
+    acces_token = auth.getAuthToken()
+    authHeader =  [f"Authorization: Bearer {acces_token}"]
+
+    buffer = BytesIO()
+    c = pycurl.Curl()
+
+    c.setopt(c.URL, "https://api.spotify.com/v1/me/player/currently-playing")
+    c.setopt(c.WRITEDATA, buffer)
+    c.setopt(c.HTTPHEADER, authHeader)
+    #c.setopt(c.HEADERFUNCTION, retryAfter)
+    try:   
+        c.perform()
+        status = c.getinfo(c.RESPONSE_CODE)
+        c.close()
+    except pycurl.error:
+        #print("get current playing type exception: ", pycurl.error)
+        return None
+    
+    if status == 401:
+        #print("get current playing type - refresh tokens")
+        auth.getNewTokens()
+        return getCurrentPlayingType()
+    elif status == 200 or status == 204: 
+        return json.loads(buffer.getvalue().decode('utf-8'))['currently_playing_type']
+    elif status == 429:
+        #print("----------------------------------------------")
+        return None
+    else:
+        #print("get current playing type error: ", status, " - ", buffer.getvalue().decode('utf-8'))
+        return None
+
+def getCurrentSongID():
+    acces_token = auth.getAuthToken()
+    authHeader =  [f"Authorization: Bearer {acces_token}"]
+
+    buffer = BytesIO()
+    c = pycurl.Curl()
+
+    if getCurrentPlayingType() == 'track': 
+        c.setopt(c.URL, "https://api.spotify.com/v1/me/player/currently-playing")
+    elif getCurrentPlayingType() == 'episode':
+        c.setopt(c.URL, "https://api.spotify.com/v1/me/player/currently-playing?additional_types=episode")
+    else:
+        #print("Cant get current type")
+        return None
+    
+    c.setopt(c.WRITEDATA, buffer)
+    c.setopt(c.HTTPHEADER, authHeader)
+    try:   
+        c.perform()
+        status = c.getinfo(c.RESPONSE_CODE)
+        c.close()
+    except pycurl.error:
+        #print("exception: ", pycurl.error)      
+        return None
+    
+    if status == 401:
+        #print(f"get {getCurrentPlayingType()} id - refreshing tokens")
+        auth.getNewTokens()
+        return getCurrentSongID()
+    elif status == 200 or status == 204:
+        return json.loads(buffer.getvalue().decode('utf-8'))['item']['id']
+    else:
+        #print("get song id error: ", status)
+        return None
+            
+def getCurrentSongAndArtist():
+    global currentSongAndArtist
+    acces_token = auth.getAuthToken()
+    if acces_token == None:
+        return "Restart Spotify Overlay"
+    
+    authHeader =  [f"Authorization: Bearer {acces_token}"]
+    buffer = BytesIO()
+    c = pycurl.Curl()
+
+    params= {"additional_types": "episode"}
+    
+
+    playingType = getCurrentPlayingType()
+    if playingType == "episode":
+        c.setopt(c.URL, "https://api.spotify.com/v1/me/player/currently-playing?additional_types=episode")
+    elif playingType == 'track':
+        c.setopt(c.URL, "https://api.spotify.com/v1/me/player/currently-playing")
+    else:
+        return "No song playing"
+
+    c.setopt(c.WRITEDATA, buffer)
+    c.setopt(c.HTTPHEADER, authHeader)
+    try:   
+        c.perform()
+        status = c.getinfo(c.RESPONSE_CODE)
+        c.close()
+    except pycurl.error:
+        #print("exception: ", pycurl.error)
+        return "Check your internet, can't get current song or no song is currently playing"
+
+    
+
+    if status == 401:
+        #print("get current song (or episode) - refreshing tokens")
+        auth.getNewTokens()
+        return getCurrentSongAndArtist()
+    elif status == 200 or status == 204:
+        response = json.loads(buffer.getvalue().decode('utf-8'))
+
+        if getCurrentPlayingType() == "track":
+            currentSongAndArtist = (response['item']['name'], response['item']['artists'][0]['name'])
+        elif getCurrentPlayingType() == "episode":
+            currentSongAndArtist = (response['item']['name'], response['item']['show']['name'])
+        else:
+            currentSongAndArtist = (None, None)
+    else:
+        #print("get current song error: ", status, " - ", buffer.getvalue().decode('utf-8'))
+        currentSongAndArtist = (None, None)
+    return currentSongAndArtist
+
+
+def getProgress():
+    acces_token = auth.getAuthToken()
+    authHeader =  [f"Authorization: Bearer {acces_token}"]
+    buffer = BytesIO()
+    c = pycurl.Curl()
+
+
+    playingType = getCurrentPlayingType()
+    if playingType == "episode":
+        c.setopt(c.URL, "https://api.spotify.com/v1/me/player/currently-playing?additional_types=episode")
+    elif playingType == 'track':
+        c.setopt(c.URL, "https://api.spotify.com/v1/me/player/currently-playing")
+    else:
+        return "No song playing"
+    c.setopt(c.WRITEDATA, buffer)
+    c.setopt(c.HTTPHEADER, authHeader)
+
+    try:   
+        c.perform()
+        status = c.getinfo(c.RESPONSE_CODE)
+        c.close()        
+    except pycurl.error:
+        #print("exception: ", pycurl.error)
+        return(None, None)
+
+    if status == 401:
+        
+        #print("getactivedevice - refreshing tokens")
+        auth.getNewTokens()
+        return getActiveDevice()
+    elif status == 200 or status == 204:
+        progress = json.loads(buffer.getvalue().decode('utf-8'))
+
+        #print(json.dumps(progress['item'], indent=4))        
+        return (progress['progress_ms'], progress['item']['duration_ms'])
+        
+    else:
+        #print("Get active device id error: ", status)
+        return None
+
+def seekToPosition(position): 
+    acces_token = auth.getAuthToken()
+    authHeader =  [f"Authorization: Bearer {acces_token}"]    
+    buffer = BytesIO()
+    c = pycurl.Curl()
+
+    #print("SEEK TO POS: ", position)
+    params = {
+            'device_id': getActiveDeviceID()[0],
+    }
+
+    c.setopt(c.URL, f"https://api.spotify.com/v1/me/player/seek?position_ms={position}")
+    c.setopt(c.WRITEDATA, buffer)
+    c.setopt(c.POSTFIELDS, urllib.parse.urlencode(params))
+    c.setopt(c.CUSTOMREQUEST, "PUT")
+    c.setopt(c.HTTPHEADER, authHeader)
+    try:   
+        c.perform()
+        status = c.getinfo(c.RESPONSE_CODE)
+        c.close()        
+    except pycurl.error:
+        #print("exception: ", pycurl.error)
+        return False
+    
+    #print("STATUS: " , status)
+
+
+    if status == 401:
+        #print("restart song - refreshing token")
+        auth.getNewTokens()
+        return nextPlayback()
+
+    elif status != 200 or status != 204:
+        #print("restart song error: ", status)
+        return False
+
+
 def restartDevice(): 
     buffer = BytesIO()
     c = pycurl.Curl()
@@ -528,123 +724,6 @@ def toggleShuffle():
     else:
         #print("Cant turn shuffle on or off")
         return None
-
-def getCurrentPlayingType():
-    acces_token = auth.getAuthToken()
-    authHeader =  [f"Authorization: Bearer {acces_token}"]
-
-    buffer = BytesIO()
-    c = pycurl.Curl()
-
-    c.setopt(c.URL, "https://api.spotify.com/v1/me/player/currently-playing")
-    c.setopt(c.WRITEDATA, buffer)
-    c.setopt(c.HTTPHEADER, authHeader)
-    #c.setopt(c.HEADERFUNCTION, retryAfter)
-    try:   
-        c.perform()
-        status = c.getinfo(c.RESPONSE_CODE)
-        c.close()
-    except pycurl.error:
-        #print("get current playing type exception: ", pycurl.error)
-        return None
-    
-    if status == 401:
-        #print("get current playing type - refresh tokens")
-        auth.getNewTokens()
-        return getCurrentPlayingType()
-    elif status == 200 or status == 204: 
-        return json.loads(buffer.getvalue().decode('utf-8'))['currently_playing_type']
-    elif status == 429:
-        #print("----------------------------------------------")
-        return None
-    else:
-        #print("get current playing type error: ", status, " - ", buffer.getvalue().decode('utf-8'))
-        return None
-
-def getCurrentSongID():
-    acces_token = auth.getAuthToken()
-    authHeader =  [f"Authorization: Bearer {acces_token}"]
-
-    buffer = BytesIO()
-    c = pycurl.Curl()
-
-    if getCurrentPlayingType() == 'track': 
-        c.setopt(c.URL, "https://api.spotify.com/v1/me/player/currently-playing")
-    elif getCurrentPlayingType() == 'episode':
-        c.setopt(c.URL, "https://api.spotify.com/v1/me/player/currently-playing?additional_types=episode")
-    else:
-        #print("Cant get current type")
-        return None
-    
-    c.setopt(c.WRITEDATA, buffer)
-    c.setopt(c.HTTPHEADER, authHeader)
-    try:   
-        c.perform()
-        status = c.getinfo(c.RESPONSE_CODE)
-        c.close()
-    except pycurl.error:
-        #print("exception: ", pycurl.error)      
-        return None
-    
-    if status == 401:
-        #print(f"get {getCurrentPlayingType()} id - refreshing tokens")
-        auth.getNewTokens()
-        return getCurrentSongID()
-    elif status == 200 or status == 204:
-        return json.loads(buffer.getvalue().decode('utf-8'))['item']['id']
-    else:
-        #print("get song id error: ", status)
-        return None
-            
-def getCurrentSongAndArtist():
-    global currentSong
-    acces_token = auth.getAuthToken()
-    if acces_token == None:
-        return "Restart Spotify Overlay"
-    
-    authHeader =  [f"Authorization: Bearer {acces_token}"]
-    buffer = BytesIO()
-    c = pycurl.Curl()
-
-    params= {"additional_types": "episode"}
-    
-
-    playingType = getCurrentPlayingType()
-    if playingType == "episode":
-        c.setopt(c.URL, "https://api.spotify.com/v1/me/player/currently-playing?additional_types=episode")
-    elif playingType == 'track':
-        c.setopt(c.URL, "https://api.spotify.com/v1/me/player/currently-playing")
-    else:
-        return "No song playing"
-
-    c.setopt(c.WRITEDATA, buffer)
-    c.setopt(c.HTTPHEADER, authHeader)
-    try:   
-        c.perform()
-        status = c.getinfo(c.RESPONSE_CODE)
-        c.close()
-    except pycurl.error:
-        #print("exception: ", pycurl.error)
-        return "Check your internet, can't get current song or no song is currently playing"
-
-    
-
-    if status == 401:
-        #print("get current song (or episode) - refreshing tokens")
-        auth.getNewTokens()
-        return getCurrentSongAndArtist()
-    elif status == 200 or status == 204:
-        response = json.loads(buffer.getvalue().decode('utf-8'))
-        if getCurrentPlayingType() == "track":
-            currentSong = response['item']['name'] + " - " + response['item']['artists'][0]['name']
-        elif getCurrentPlayingType() == "episode":
-            currentSong = response['item']['name'] + " - " + response['item']['show']['name']
-        else:
-            currentSong = "None"
-    else:
-        #print("get current song error: ", status, " - ", buffer.getvalue().decode('utf-8'))
-        currentSong = "None"
-    return currentSong
 
 def getSongLikedState():  
     acces_token = auth.getAuthToken()
