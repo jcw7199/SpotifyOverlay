@@ -75,6 +75,11 @@ def getTokens():
     buffer = BytesIO()
     c = pycurl.Curl()
     auth_code = getAuthCode()
+
+    if(auth_code == 'Declined'):
+        return exit(0)
+    
+
     tokenParams = {
       'grant_type': "authorization_code",
       'code': auth_code,
@@ -170,5 +175,7 @@ def getAuthToken():
    global auth_token
    if auth_token == None:
         return getTokens()
+   elif auth_code == 'Declined':
+      quit()
    else:
       return auth_token

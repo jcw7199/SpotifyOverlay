@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import QWidget
 import time
 import getSpotify
 
+#pyqt.configure(text=text)
 
 app = QApplication([])
 
@@ -15,21 +16,6 @@ threads = []
 msPerHour = 3600000
 msPerMinute = 60000
 msPerSecond = 1000
-
-
-
-class WorkerThread(QThread):
-    # Signal to update progress
-    message_signal = pyqtSignal(str)
-    def __init__(self, bar, parent = ...):
-        super().__init__(parent)
-        self.bar = bar
-
-
-    def run(self):
-        while True:
-            updateSongProgress(bar=self.bar)  # To avoid flooding with too many "Hello"s
-            self.message_signal.emit("Hello")
 
 
 class Labels(QLabel):   
@@ -50,13 +36,23 @@ class Labels(QLabel):
           
         label.setStyleSheet(style)
            
-class Buttons(QPushButton):
+class Button(QPushButton):
     
     def __init__(self, text, function, parent = None):
         QPushButton.__init__(self)
         self.setText(text)
-        self.clicked.connect(function)
-        self.setParent(parent)
+        self.function = function
+        if self.function != None:
+            self.clicked.connect(function)
+            self.setParent(parent)
+
+    def setFunction(self, function):
+        self.function = function
+        
+        if self.function != None:
+            self.clicked.connect(function)
+
+
 
     def colorButton(button=QPushButton, background_color=str, textColor=str):
         style = "background-color : " + background_color  
@@ -82,6 +78,8 @@ class Bar(QProgressBar):
         text_width = metrics.width(text)
 
         #print(text_width)
+
+        worker = WorkerThread(self, )
         seekToPosition(event.pos().x()/(self.width() - text_width))
 
     def colorBar(bar=QProgressBar, background_color=str, textColor=str):
@@ -102,24 +100,57 @@ class Layout(QGridLayout):
         super().__init__()
 
 class WorkerThread(QThread):
-    progress_updated = pyqtSignal(int)
-
-    def __init__(self, bar):
+    signal_int = pyqtSignal(int)
+    signal_str = pyqtSignal(str)
+    x = 0;
+    def __init__(self, widget, type, function):
         super().__init__()
-        self.bar = bar
+        self.widget = widget
+        self.type = type
+        self.function = function
 
+        
     def do_work(self):
-        while running == True:
-            prog = updateSongProgress(bar=self.bar)
-            self.progress_updated.emit(prog)
+        data = "None"
+        try:
+            data = self.function(self.widget)
+        except:
+            try:
+                data = self.function()
+            except:
+                print("Error running function", self.function.__name__, "from workerthread")
+        
+        #print("DATA: -----------------", data)
+        if self.type == int:
+            self.signal_int.emit(data)
+        elif self.type == str:
+            self.signal_str.emit(data)
+        else:
+            print("WRONG TYPE FOR WORKER THREAD")
+            return None
             
     def run(self):
-        """Override run method
-        """
-        self.do_work()
-        
+        if isinstance(self.widget, Button):
+                self.widget.clicked.connect(self.do_work)
+        else:
+            while True:
+                self.do_work()
+
+class ButtonThread(QThread):
+    signal = pyqtSignal(str)
+
+    def __init__(self, clickFunction):
+        super().__init__()
+        self.clickFunction = clickFunction
+
+    def run(self):
+        data = self.clickFunction()
+
+        if type(data) is str:
+            self.signal.emit(data)
 
 class Window(QMainWindow):
+    mysignal = pyqtSignal(str)
 
     def __init__(self, flags):
         super().__init__()
@@ -129,7 +160,7 @@ class Window(QMainWindow):
         self.setStyleSheet("background-color: black")
         self.offset = None
         self.initUI()   
-    
+
     def initUI(self):
 
         self.myWidget = Widget()
@@ -142,17 +173,27 @@ class Window(QMainWindow):
         self.currentSong = Labels("Current Song", Qt.AlignmentFlag.AlignCenter, self.myWidget)
         self.currentDevice = Labels("Playing on...",  Qt.AlignmentFlag.AlignCenter, self.myWidget)
 
-        self.likeButton = Buttons("Like", getSpotify.toggleLikeSong, self.myWidget)
-        self.restartButton = Buttons("Restart", getSpotify.restartSong, self.myWidget)
-        self.volumePlusButton = Buttons("Vol +", (lambda: changeVolume('up')), self.myWidget)
-        self.volumeMinusButton = Buttons("Vol -", (lambda: changeVolume('down')), self.myWidget)
-        self.previousButton = Buttons("<<", getSpotify.previousPlayback, self.myWidget)
-        self.pauseButton = Buttons("Pause", getSpotify.togglePlayback, self.myWidget)
-        self.nextButton = Buttons(">>", getSpotify.nextPlayback, self.myWidget)
-        self.shuffleButton = Buttons("Shuffle", getSpotify.toggleShuffle, self.myWidget)
-        self.repeatButton = Buttons("Repeat", getSpotify.toggleRepeat, self.myWidget)
-        self.minimzeButton = Buttons("-", self.minimizeWindow, self.myWidget)
-        self.quitButton = Buttons("X", self.closeWindow, self.myWidget)
+        self.likeButton = Button("Like",lambda: self.dynamicBtnWork(toggleLike, updateLikeButtonText, self.likeButton), self.myWidget)
+        self.restartButton = Button("Restart", lambda: self.staticBtnWork(getSpotify.restartSong, self.restartButton), self.myWidget)
+        
+        
+        self.volumePlusButton = Button("Vol +", lambda: self.staticBtnWork( lambda: (changeVolume('up')), self.volumePlusButton), self.myWidget)
+        self.volumeMinusButton = Button("Vol -", lambda: self.staticBtnWork( lambda: (changeVolume('down')), self.volumeMinusButton), self.myWidget)
+
+
+        self.previousButton = Button("<<", lambda: self.staticBtnWork(getSpotify.previousPlayback, self.previousButton), self.myWidget)
+        
+        self.pauseButton = Button("Pause", lambda: self.dynamicBtnWork(togglePlayback, self.pauseButton.setText, None), self.myWidget)
+
+        self.nextButton = Button(">>", lambda: self.staticBtnWork(getSpotify.nextPlayback, self.nextButton), self.myWidget)
+        
+        
+        self.shuffleButton = Button("Shuffle", lambda: self.dynamicBtnWork(getSpotify.toggleShuffle, updateShuffleButtonText, self.shuffleButton), self.myWidget)
+
+        self.repeatButton = Button("Repeat", lambda: self.dynamicBtnWork(getSpotify.toggleRepeat, updateShuffleButtonText, self.shuffleButton), self.myWidget)
+
+        self.minimzeButton = Button("-", self.minimizeWindow, self.myWidget)
+        self.quitButton = Button("X", self.closeWindow, self.myWidget)
         
         self.progressbar = Bar(parent=self.myWidget)
         
@@ -163,9 +204,9 @@ class Window(QMainWindow):
                       self.minimzeButton]
 
         for btn in buttonList:
-            Buttons.colorButton(btn, "#06F00F", "black")
+            Button.colorButton(btn, "#06F00F", "black")
 
-        Buttons.colorButton(self.quitButton, "#D80A22", "white")
+        Button.colorButton(self.quitButton, "#D80A22", "white")
 
         Labels.colorLabel(self.currentSong, "black", "#06F00F")
         Labels.colorLabel(self.currentDevice, "black", "#06F00F")
@@ -194,11 +235,31 @@ class Window(QMainWindow):
         self.progressbar.setFormat("0:00")
         self.progressbar.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
 
-    def start_work(self):
-        self.thread = WorkerThread(self.progressbar)
-        self.thread.progress_updated.connect(self.progressbar.setValue)
-        self.thread.start()
 
+    def dynamicBtnWork(self, btnclickFunction, btntextfunction):
+        self.worker = ButtonThread(btnclickFunction)
+        self.worker.signal.connect(btntextfunction)
+        
+        self.worker.start()
+        
+    def staticBtnWork(self, btnclickFunction, widget):
+        self.worker = ButtonThread(btnclickFunction)
+        self.worker.start()
+
+    def start_work(self, widget, type, function):
+        thread = WorkerThread(widget, type, function)
+        threads.append(thread)
+        if type == int:
+            thread.signal_int.connect(widget.setValue)
+        elif type == str:         
+            if isinstance(widget, Bar) is True:
+                thread.signal_str.connect(widget.setFormat)
+            else:
+                thread.signal_str.connect(widget.setText)
+
+        thread.start()
+
+        print(threads)
 
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
@@ -227,11 +288,10 @@ class Window(QMainWindow):
         self.close()
 
 def formatTime(milliseconds):
-
-    
     seconds = 0
     minutes = 0
     hours = 0
+    t = None
     if (milliseconds > msPerHour):
     
         hours = milliseconds / msPerHour
@@ -299,19 +359,21 @@ def changeVolume(upOrDown):
             getSpotify.volumeDown()
 
 def seekToPosition(position):
-    duration = getSpotify.getProgress()[1]
+    duration = getSpotify.getProgressAndDuration()[1]
 
     newPosition =int(position * duration);
 
     getSpotify.seekToPosition(newPosition)   
 
-def updateSongLabelText(label=Labels):
-    global running
-    x = 0
-    while running == True:
-        time.sleep(3)
-        song, artist = getSpotify.getCurrentSongAndArtist()
-        
+def updateSongLabelText(label):
+    time.sleep(1)
+    
+    songInfo = list(getSpotify.getCurrentSongAndArtist())
+
+    if len(songInfo) == 2:
+        song = songInfo[0]
+        artist = songInfo[1]
+    
         txt = ""
 
 
@@ -327,113 +389,117 @@ def updateSongLabelText(label=Labels):
 
         txt = song + " - " + artist
 
-        label.pyqtConfigure(text=txt)
+        return txt
+    else:
+        print("ERROR: SONG INFO - ", songInfo)
+        return "Error: Can't get current song or no song is currently playing"
 
-def updateDeviceLabelText(label=Labels):
-    global running
-    x = 0
-    while running == True:
-        time.sleep(3)
-        device = getSpotify.getActiveDevice()
-        #print(device)
-        name = "Playing on "
-        if device != None:
-            devName = device[0]['name']
+def updateDeviceLabelText(label): 
+    time.sleep(1)
+    device = getSpotify.getActiveDevice()
+    #print(device)
+    name = "Playing on "
+    if device != None:
+        devName = device[0]['name']
 
-            if devName != None:
-                if len(devName) > 10:
-                    devName = devName[0:10] + "..."
-                
-                name += devName
-                #print("NAME: " + name)
-                label.pyqtConfigure(text=name)
-            else:
-                label.pyqtConfigure(text="Can't get current device")
-
-def updateSongProgress(bar=Bar):
-       
-    progress, duration = getSpotify.getProgress()
-    
-    #print("P: ", progress, " D: ", duration)   
-    if (progress != None and duration != None):
-        if (duration > msPerHour and progress < msPerHour):
-            formattedTime = " 00:"
-            if (progress < msPerMinute * 10):
-                formattedTime += " 0"
+        if devName != None:
+            if len(devName) > 10:
+                devName = devName[0:10] + "..."
             
-            formattedTime += formatTime(progress) + " / " + formatTime(duration)
-
+            name += devName
+            #print("NAME: " + name)
+            return name
         else:
-            formattedTime = formatTime(progress) + " / " + formatTime(duration)
+            return "Can't get current device"
 
-        bar.setFormat(formattedTime)
-        
-        if (bar.value() >= 100):
-            return 0
-        else:
-            return (int(round((progress/duration) * 100)))
+def updateSongProgress(bar):
+    time.sleep(1)
+    progress = list(getSpotify.getProgressAndDuration())
+    duration = None
+    #print(progress)
+    
+    if(len(progress) == 2):
+        duration = progress[1]
+        progress = progress[0]
+            
+        #print("P: ", progress, " D: ", duration)   
+        if (progress != None and duration != None):
+            
+            if (bar.value() >= 100):
+                return 0
+            else:
+                return (int(round((progress/duration) * 100)))
+    else:
+        print("ERROR - PROG: ", progress)
 
+def updateSongTime(bar):
+    time.sleep(1)
+    progress = list(getSpotify.getProgressAndDuration())
+    duration = None
+    #print(progress)
+    
+    if(len(progress) == 2):
+        duration = progress[1]
+        progress = progress[0]
+            
+        #print("P: ", progress, " D: ", duration)   
+        if (progress != None and duration != None):
+            if (duration > msPerHour and progress < msPerHour):
+                formattedTime = " 00:"
+                if (progress < msPerMinute * 10):
+                    formattedTime += " 0"
+                
+                formattedTime += formatTime(progress) + " / " + formatTime(duration)
 
-def updatePauseButtonText(button=Buttons):
-    global running
-    x = 0
-    while running == True:
-        time.sleep(3)
-        is_playing = getSpotify.getPlaybackState()
-        if is_playing == True:
-            button.pyqtConfigure(text="Pause")
-        else:
-            button.pyqtConfigure(text="Play")
-        
+            else:
+                formattedTime = formatTime(progress) + " / " + formatTime(duration)
+
+            return formattedTime
+    else:
+        print("ERROR - PROG: ", progress)
+
+def updatePauseButtonText(button=Button):
+    #`  time.sleep(1)
+    is_playing = getSpotify.getPlaybackState()
+    if is_playing == True:
+        button.pyqtConfigure(text="Pause")
+    else:
+        button.pyqtConfigure(text="Play")
+    
+def updateLikeButtonText(button):
+    time.sleep(1)
+    state =  getSpotify.getSongLikedState() 
+
+    if state == True:
+        button.pyqtConfigure(text="Unlike")
+    elif state == False:
+        button.pyqtConfigure(text="Like")
+    else:
+        button.pyqtConfigure(text="Can't Like")
+
+def updateShuffleButtonText(button):
+    time.sleep(2)
+    state = getSpotify.getShuffleState()
+    if state  == False:
+        return "Shuffle"
+    elif state == True:
+        return "Unshuffle"
+    else:
+        return "Can't Shuffle"
+
+def updateRepeatButtonText(button):
+    time.sleep(2)
+    state = getSpotify.getRepeatState()
+
+    if state == "off":
+        return "Repeat On"
+    elif state == "context":
+        return "Repeat 1"
+    elif state == "track":
+        return "Repeat Off"
+    else:
+        return "Can't Repeat"
  
-        x += 1
-
-def updateLikeButtonText(button=Buttons):
-    global running
-    x = 0
-    while running == True:
-        time.sleep(3)
-        state =  getSpotify.getSongLikedState() 
-        if state == True:
-            button.pyqtConfigure(text="Unlike")
-        elif state == False:
-            button.pyqtConfigure(text="Like")
-        else:
-            button.pyqtConfigure(text="Cant Like")
-
-        x += 1
-
-def updateShuffleButtonText(button=Buttons):
-    global running
-    x = 0
-    while running == True:
-        time.sleep(3)
-        state = getSpotify.getShuffleState()
-        if state  == False:
-            button.pyqtConfigure(text="Shuffle")
-        elif state == True:
-            button.pyqtConfigure(text="Unshuffle")
-        else:
-            button.pyqtConfigure(text="Can't shuffle")
-        x += 1
-
-def updateRepeatButtonText(button=Buttons):
-    global running
-    x = 0
-    while running == True:
-        time.sleep(3)
-        state = getSpotify.getRepeatState()
-
-        if state == "off":
-            button.pyqtConfigure(text="Repeat On")
-        elif state == "context":
-            button.pyqtConfigure(text="Repeat 1")
-        elif state == "track":
-            button.pyqtConfigure(text="Repeat Off")
-        else:
-            button.pyqtConfigure(text="Can't Repeat")
-        x += 1
-
 def startSpotify():
     restart = getSpotify.getActiveDevice()
 
@@ -455,8 +521,81 @@ def startSpotify():
         msg.exec_()
         while getSpotify.getActiveDevice()[0] == None:
             print("waiting for spotify to start...")
+            time.sleep(3)
     
         startSpotify()
+
+def checkPlayStatus(button):
+    while True:
+        is_playing = getSpotify.getPlaybackState()
+
+        if is_playing == True:
+            button.pyqtConfigure(text="Pause")
+        else:
+            button.pyqtConfigure(text="Play")
+
+        #time.sleep(2)        
+
+def checkLikeStatus(button):
+    while True:
+       
+        state =  getSpotify.getSongLikedState() 
+
+        if state == True:
+            button.pyqtConfigure(text="Unlike")
+        elif state == False:
+            button.pyqtConfigure(text="Like")
+        else:
+            button.pyqtConfigure(text="Can't Like")
+        time.sleep(2)
+
+def checkRepeatStatus(button):
+    while True:
+        time.sleep(2)
+        state = getSpotify.getRepeatState()
+
+        if state == "off":
+            button.pyqtConfigure(text="Repeat On")
+        elif state == "context":
+            button.pyqtConfigure(text="Repeat 1")
+        elif state == "track":
+            button.pyqtConfigure(text="Repeat Off")
+        else:
+            button.pyqtConfigure(text="Can't Repeat")
+
+def checkShuffleStatus(button):
+    while True:
+        time.sleep(2)
+        state = getSpotify.getShuffleState()
+        if state  == False:
+            button.pyqtConfigure(text="Shuffle")
+        elif state == True:
+            button.pyqtConfigure(text="Unshuffle")
+        else:
+            button.pyqtConfigure(text="Can't Shuffle")
+
+def toggleLike():
+    getSpotify.toggleLikeSong()
+    state = getSpotify.getSongLikedState()
+
+    if state == True:
+        return "Unlike"
+    else:
+        return "Like"
+
+def toggleRestart():
+    getSpotify.restartSong()
+    return "Restart"
+
+def togglePlayback():
+    state = getSpotify.togglePlayback()
+
+    if state == True:
+        return "Pause"
+    else:
+        return "Play"
+
+
 
 def main():
     global threads
@@ -471,49 +610,50 @@ def main():
     myWindow.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
 
     myWindow.show()
+
         
-    myWindow.start_work()
+    
+    myWindow.start_work(myWindow.progressbar, int, updateSongProgress)
 
-    updateSongTh = threading.Thread(target=updateSongLabelText, kwargs={'label': myWindow.currentSong})
-    updateSongTh.daemon = True
-    updateSongTh.start()
+    myWindow.start_work(myWindow.progressbar, str, updateSongTime)
 
-    updateDeviceTh = threading.Thread(target=updateDeviceLabelText, kwargs={'label': myWindow.currentDevice})
-    updateDeviceTh.daemon = True
-    updateDeviceTh.start()
+    myWindow.start_work(myWindow.currentSong, str, updateSongLabelText)
 
-    #updateProgressTh = threading.Thread(target=updateSongProgress, kwargs={'bar': myWindow.progressbar})
-    #updateProgressTh.daemon = True
-    #updateProgressTh.start()
+    myWindow.start_work(myWindow.currentDevice, str, updateDeviceLabelText)
 
 
-    updatePauseTh = threading.Thread(target=updatePauseButtonText, kwargs={'button': myWindow.pauseButton})
+    '''
+    updatePauseTh = threading.Thread(target=lambda: (checkPlayStatus(myWindow.pauseButton)) )
     updatePauseTh.daemon = True
     updatePauseTh.start()
     
-    updateLikeTh = threading.Thread(target=updateLikeButtonText, kwargs={'button': myWindow.likeButton})
+    
+    
+    updateLikeTh = threading.Thread(target=lambda: (checkLikeStatus(myWindow.likeButton)) )
     updateLikeTh.daemon = True
     updateLikeTh.start()
 
-    updateShuffleTh = threading.Thread(target=updateShuffleButtonText, kwargs={'button': myWindow.shuffleButton})
+    
+    updateShuffleTh = threading.Thread(target=lambda: (checkShuffleStatus(myWindow.shuffleButton)) )
     updateShuffleTh.daemon = True
     updateShuffleTh.start()
 
-    updateRepeatTh = threading.Thread(target=updateRepeatButtonText, kwargs={'button': myWindow.repeatButton})
+    updateRepeatTh = threading.Thread(target=lambda: (checkRepeatStatus(myWindow.repeatButton)) )
     updateRepeatTh.daemon = True
     updateRepeatTh.start()
-
+    
     refreshTokenTh = threading.Thread(target=getSpotify.refreshTokens)
     refreshTokenTh.daemon = True
     refreshTokenTh.start()
-    '''
+    
+    
     threads.append(updateLikeTh)
     threads.append(updatePauseTh)
     threads.append(updateShuffleTh)
-    threads.append(updateSongTh)
     threads.append(updateRepeatTh)
     threads.append(refreshTokenTh)
     '''
+
     app.exec_()
 
 if __name__ == '__main__':
