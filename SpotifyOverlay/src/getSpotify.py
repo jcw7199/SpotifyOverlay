@@ -433,7 +433,6 @@ def pausePlayback():
         return None
 
 def togglePlayback():
-    #time.sleep(0.5)
     print('TOGGLE PLAYBACK')
     if getPlaybackState() == True:
         print("togglePlayback - Pausing playback")
@@ -446,8 +445,6 @@ def togglePlayback():
     
 
 def restartSong():
-    #time.sleep(0.75)
-
     acces_token = auth.getAuthToken()
     authHeader =  [f"Authorization: Bearer {acces_token}"]    
     buffer = BytesIO()
@@ -883,7 +880,6 @@ def unlikeSong():
         return False
 
 def toggleLikeSong():
-    #time.sleep(0.75)
     state = getSongLikedState()
 
     if state == True:
