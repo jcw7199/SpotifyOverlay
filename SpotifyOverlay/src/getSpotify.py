@@ -241,7 +241,7 @@ def getProgressAndDuration():
         return getProgressAndDuration()
     elif status == 200 or status == 204:
         progress = json.loads(buffer.getvalue().decode('utf-8'))
-        print("getProgressAndDuration - Returning progress and duration...")
+        #print("getProgressAndDuration - Returning progress and duration...")
         return (progress['progress_ms'], progress['item']['duration_ms'])
         
     else:
@@ -648,10 +648,19 @@ def getShuffleState():
     elif status == 200 or status == 204:
         state = json.loads(buffer.getvalue().decode('utf-8'))['shuffle_state']        
         print("getting shuffle state")
-        return state
+
+        if state == True:
+            print("Checking for smart shuffle")
+            smart = json.loads(buffer.getvalue().decode('utf-8'))['smart_shuffle']
+            if smart == True:
+                return "Smart Shuffled"
+            else:
+                return "Shuffled" 
+        else:
+            return "Unshuffled"
     else:
         print("getShuffleState error: ", status, " - ", buffer.getvalue().decode('utf-8'))
-        return False
+        return None
 
 def shuffleOff():
     buffer = BytesIO()
@@ -723,12 +732,12 @@ def shuffleOn():
 def toggleShuffle():
     time.sleep(0.75)
     state = getShuffleState()
-    if state == True:
-        print("shuffle off")
-        return shuffleOff()
-    elif state == False:
+    if state == "Unshuffled":
         print("shuffle on")
-        return shuffleOn()        
+        return shuffleOn()
+    elif state == "Shuffled" or state == "Smart Shuffled":
+        print("shuffle off")
+        return shuffleOff()        
     else:
         print("Cant turn shuffle on or off")
         return None
@@ -914,9 +923,12 @@ def getRepeatState():
         return getRepeatState()
     
     elif status == 200 or status == 204:
-        state = json.loads(buffer.getvalue().decode('utf-8'))['repeat_state'] 
-        return state
-   
+        if buffer:
+            state = json.loads(buffer.getvalue().decode('utf-8'))['repeat_state'] 
+            return state
+        else:
+            print("Buffer Error")
+            return None
     else:
         print("getRepeatState: ", status, " - ", buffer.getvalue().decode('utf-8'))
         return None
