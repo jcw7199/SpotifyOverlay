@@ -64,7 +64,8 @@ def getAuthCode():
     #authRequestThread.daemon = True
     #authRequestThread.start()
     #authRequestThread.join()
-
+    
+    
     webbrowser.open_new(auth_request_url)
     code = server.get_auth_code()
     return code
@@ -78,7 +79,7 @@ def getTokens():
 
     if(auth_code == 'Declined'):
         return exit(0)
-    
+
 
     tokenParams = {
       'grant_type': "authorization_code",
