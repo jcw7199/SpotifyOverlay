@@ -583,9 +583,9 @@ def toggleRepeat():
 
 def startSpotify():
     restart = getSpotify.getActiveDevice()
-    
+    startAttempts = 0
     if restart[0] != None:
-        #("starting spotify... ", restart)
+        ("starting spotify... ", restart)
         if restart[1] == True:
             getSpotify.startPlayback()
         else:
@@ -602,8 +602,17 @@ def startSpotify():
         msg.exec_()
         while getSpotify.getActiveDevice()[0] == None:
             print("waiting for spotify to start...")
+            startAttempts += 1
             time.sleep(3)
-    
+            if startAttempts > 100:
+                msg = QMessageBox()
+                flags = Qt.WindowFlags(Qt.WindowStaysOnTopHint)
+                msg.setText("No device found, closing overlay.")
+                msg.setWindowFlags(flags)
+                msg.show()
+                msg.exec_()
+                return False
+
         startSpotify()
 
 
@@ -661,7 +670,11 @@ def main():
     myWindow = Window(flags)
     myWindow.setGeometry(500, 500, 50, 30)
     
-    startSpotify()
+    start = startSpotify()
+    if start == False:
+        print("closing application")
+        exit(1)
+
 
     myWindow.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
 
