@@ -77,7 +77,9 @@ class Bar(QProgressBar):
         metrics = QFontMetrics(font)
         text_width = metrics.width(text)
 
-        updateBarValueTh = threading.Thread(target=lambda: (seekToPosition(event.pos().x()/(self.width() - text_width + 3))))
+        #updateBarValueTh = threading.Thread(target=lambda: (seekToPosition(event.pos().x()/(self.width() - text_width + 3))))
+        updateBarValueTh = threading.Thread(target=lambda: (seekToPosition(event.pos().x()/(self.width() - 3))))
+
         #updateBarValueTh.int_signal.connect(self.setValue)
         updateBarValueTh.start()       
         
@@ -195,7 +197,8 @@ class Window(QMainWindow):
         #labels
         self.currentSong = Labels("Current Song", Qt.AlignmentFlag.AlignCenter, self.myWidget)
         self.currentDevice = Labels("Playing on...",  Qt.AlignmentFlag.AlignCenter, self.myWidget)
-        
+        self.currentTime = Labels("0:00", Qt.AlignmentFlag.AlignCenter, self.myWidget)
+
         #dynamic value buttons
         self.likeButton = Button("Like",lambda: self.dynamicBtnWork(toggleLike, self.likeButton.setText), self.myWidget)
         self.pauseButton = Button("Pause", lambda: self.dynamicBtnWork(togglePlayback, self.pauseButton.setText), self.myWidget)
@@ -234,7 +237,9 @@ class Window(QMainWindow):
 
         Labels.colorLabel(self.currentSong, "black", "#06F00F")
         Labels.colorLabel(self.currentDevice, "black", "#06F00F")
-        
+        Labels.colorLabel(self.currentTime, "black", "#06F00F")
+
+
         Bar.colorBar(self.progressbar, "#D80A22", "white")
         #add widgets to layout
         self.myLayout.addWidget(self.currentSong, 0, 0, 1, 11)
@@ -252,11 +257,13 @@ class Window(QMainWindow):
         self.myLayout.addWidget(self.minimzeButton, 2, 9)
         self.myLayout.addWidget(self.quitButton, 2, 10)
 
-        self.myLayout.addWidget(self.progressbar, 3, 0, 1, 11)
+        self.myLayout.addWidget(self.progressbar, 3, 0, 1, 10)
+        self.myLayout.addWidget(self.currentTime, 3, 10, 1, 1)
 
         self.progressbar.setRange(0, 100)
         self.progressbar.setValue(0)
-        self.progressbar.setFormat("0:00")
+        #self.progressbar.setFormat("0:00")
+        self.progressbar.setTextVisible(False)
         self.progressbar.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
 
     def initThreads(self):
@@ -273,8 +280,8 @@ class Window(QMainWindow):
         self.updateSongProgTh.int_signal.connect(self.progressbar.setValue)
         self.updateSongProgTh.start()
 
-        self.updateSongTimeTh = BarThread(lambda: updateSongTime(self.progressbar))
-        self.updateSongTimeTh.str_signal.connect(self.progressbar.setFormat)
+        self.updateSongTimeTh = LabelThread(updateSongTime)
+        self.updateSongTimeTh.signal.connect(self.currentTime.setText)
         self.updateSongTimeTh.start()
 
         self.updateLikeButtonTh = ButtonLabelThread(updateLikeButtonText)
@@ -468,7 +475,7 @@ def updateSongProgress():
         print("ERROR - PROG: ", progress)
         return 0
 
-def updateSongTime(bar):
+def updateSongTime():
     time.sleep(.5)
     progress = list(getSpotify.getProgressAndDuration())
     duration = None
