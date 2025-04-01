@@ -1,7 +1,7 @@
-(['C:\\Users\\Mr. '
-  'Nobody\\Documents\\Projects\\SpotifyOverlay\\SpotifyOverlay\\src\\SpotifyOverlay.py'],
- ['C:\\Users\\Mr. '
-  'Nobody\\Documents\\Projects\\SpotifyOverlay\\SpotifyOverlay\\src'],
+(['C:\\Users\\Mr. Nobody\\Documents\\Projects\\SpotifyOverlay - '
+  'git\\SpotifyOverlay\\SpotifyOverlay\\SpotifyOverlay\\src\\SpotifyOverlay.py'],
+ ['C:\\Users\\Mr. Nobody\\Documents\\Projects\\SpotifyOverlay - '
+  'git\\SpotifyOverlay\\SpotifyOverlay\\SpotifyOverlay\\src'],
  [],
  [('C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
    'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\numpy\\_pyinstaller',
@@ -35,8 +35,8 @@
    'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_pkgutil.py',
    'PYSOURCE'),
   ('SpotifyOverlay',
-   'C:\\Users\\Mr. '
-   'Nobody\\Documents\\Projects\\SpotifyOverlay\\SpotifyOverlay\\src\\SpotifyOverlay.py',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\SpotifyOverlay - '
+   'git\\SpotifyOverlay\\SpotifyOverlay\\SpotifyOverlay\\src\\SpotifyOverlay.py',
    'PYSOURCE')],
  [('pkgutil',
    'C:\\Program '
@@ -474,21 +474,21 @@
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
    'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyInstaller\\fake-modules\\_pyi_rth_utils\\__init__.py',
    'PYMODULE'),
+  ('_py_abc',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.752.0_x64__qbz5n2kfra8p0\\Lib\\_py_abc.py',
+   'PYMODULE'),
   ('tracemalloc',
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.752.0_x64__qbz5n2kfra8p0\\Lib\\tracemalloc.py',
-   'PYMODULE'),
-  ('stringprep',
-   'C:\\Program '
-   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.752.0_x64__qbz5n2kfra8p0\\Lib\\stringprep.py',
    'PYMODULE'),
   ('_colorize',
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.752.0_x64__qbz5n2kfra8p0\\Lib\\_colorize.py',
    'PYMODULE'),
-  ('_py_abc',
+  ('stringprep',
    'C:\\Program '
-   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.752.0_x64__qbz5n2kfra8p0\\Lib\\_py_abc.py',
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.752.0_x64__qbz5n2kfra8p0\\Lib\\stringprep.py',
    'PYMODULE'),
   ('psutil',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
@@ -555,8 +555,8 @@
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.752.0_x64__qbz5n2kfra8p0\\Lib\\signal.py',
    'PYMODULE'),
   ('getSpotify',
-   'C:\\Users\\Mr. '
-   'Nobody\\Documents\\Projects\\SpotifyOverlay\\SpotifyOverlay\\src\\getSpotify.py',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\SpotifyOverlay - '
+   'git\\SpotifyOverlay\\SpotifyOverlay\\SpotifyOverlay\\src\\getSpotify.py',
    'PYMODULE'),
   ('requests',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
@@ -875,12 +875,12 @@
    'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\requests\\exceptions.py',
    'PYMODULE'),
   ('auth',
-   'C:\\Users\\Mr. '
-   'Nobody\\Documents\\Projects\\SpotifyOverlay\\SpotifyOverlay\\src\\auth.py',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\SpotifyOverlay - '
+   'git\\SpotifyOverlay\\SpotifyOverlay\\SpotifyOverlay\\src\\auth.py',
    'PYMODULE'),
   ('server',
-   'C:\\Users\\Mr. '
-   'Nobody\\Documents\\Projects\\SpotifyOverlay\\SpotifyOverlay\\src\\server.py',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\SpotifyOverlay - '
+   'git\\SpotifyOverlay\\SpotifyOverlay\\SpotifyOverlay\\src\\server.py',
    'PYMODULE'),
   ('webbrowser',
    'C:\\Program '
@@ -930,69 +930,77 @@
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.752.0_x64__qbz5n2kfra8p0\\python313.dll',
    'BINARY'),
-  ('PyQt5\\Qt5\\plugins\\imageformats\\qico.dll',
+  ('PyQt5\\Qt5\\plugins\\imageformats\\qsvg.dll',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qico.dll',
-   'BINARY'),
-  ('PyQt5\\Qt5\\plugins\\platformthemes\\qxdgdesktopportal.dll',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\platformthemes\\qxdgdesktopportal.dll',
-   'BINARY'),
-  ('PyQt5\\Qt5\\plugins\\platforms\\qoffscreen.dll',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\platforms\\qoffscreen.dll',
-   'BINARY'),
-  ('PyQt5\\Qt5\\plugins\\platforms\\qwebgl.dll',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\platforms\\qwebgl.dll',
-   'BINARY'),
-  ('PyQt5\\Qt5\\plugins\\imageformats\\qwbmp.dll',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qwbmp.dll',
-   'BINARY'),
-  ('PyQt5\\Qt5\\plugins\\imageformats\\qjpeg.dll',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qjpeg.dll',
-   'BINARY'),
-  ('PyQt5\\Qt5\\plugins\\imageformats\\qicns.dll',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qicns.dll',
-   'BINARY'),
-  ('PyQt5\\Qt5\\plugins\\platforms\\qminimal.dll',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\platforms\\qminimal.dll',
-   'BINARY'),
-  ('PyQt5\\Qt5\\plugins\\imageformats\\qgif.dll',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qgif.dll',
-   'BINARY'),
-  ('PyQt5\\Qt5\\plugins\\iconengines\\qsvgicon.dll',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\iconengines\\qsvgicon.dll',
-   'BINARY'),
-  ('PyQt5\\Qt5\\plugins\\imageformats\\qwebp.dll',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qwebp.dll',
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qsvg.dll',
    'BINARY'),
   ('PyQt5\\Qt5\\plugins\\imageformats\\qtga.dll',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
    'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qtga.dll',
    'BINARY'),
+  ('PyQt5\\Qt5\\plugins\\platforms\\qoffscreen.dll',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\platforms\\qoffscreen.dll',
+   'BINARY'),
+  ('PyQt5\\Qt5\\plugins\\imageformats\\qjpeg.dll',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qjpeg.dll',
+   'BINARY'),
+  ('PyQt5\\Qt5\\plugins\\imageformats\\qwebp.dll',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qwebp.dll',
+   'BINARY'),
   ('PyQt5\\Qt5\\plugins\\platforms\\qwindows.dll',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
    'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\platforms\\qwindows.dll',
    'BINARY'),
-  ('PyQt5\\Qt5\\plugins\\imageformats\\qtiff.dll',
+  ('PyQt5\\Qt5\\plugins\\iconengines\\qsvgicon.dll',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qtiff.dll',
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\iconengines\\qsvgicon.dll',
+   'BINARY'),
+  ('PyQt5\\Qt5\\plugins\\platforms\\qwebgl.dll',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\platforms\\qwebgl.dll',
+   'BINARY'),
+  ('PyQt5\\Qt5\\plugins\\platforms\\qminimal.dll',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\platforms\\qminimal.dll',
+   'BINARY'),
+  ('PyQt5\\Qt5\\plugins\\imageformats\\qico.dll',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qico.dll',
+   'BINARY'),
+  ('PyQt5\\Qt5\\plugins\\imageformats\\qicns.dll',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qicns.dll',
+   'BINARY'),
+  ('PyQt5\\Qt5\\plugins\\imageformats\\qgif.dll',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qgif.dll',
+   'BINARY'),
+  ('PyQt5\\Qt5\\plugins\\imageformats\\qwbmp.dll',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qwbmp.dll',
    'BINARY'),
   ('PyQt5\\Qt5\\plugins\\generic\\qtuiotouchplugin.dll',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
    'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\generic\\qtuiotouchplugin.dll',
    'BINARY'),
-  ('PyQt5\\Qt5\\plugins\\imageformats\\qsvg.dll',
+  ('PyQt5\\Qt5\\plugins\\platformthemes\\qxdgdesktopportal.dll',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qsvg.dll',
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\platformthemes\\qxdgdesktopportal.dll',
+   'BINARY'),
+  ('PyQt5\\Qt5\\plugins\\imageformats\\qtiff.dll',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qtiff.dll',
+   'BINARY'),
+  ('PyQt5\\Qt5\\bin\\d3dcompiler_47.dll',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\bin\\d3dcompiler_47.dll',
+   'BINARY'),
+  ('PyQt5\\Qt5\\bin\\opengl32sw.dll',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\bin\\opengl32sw.dll',
    'BINARY'),
   ('PyQt5\\Qt5\\bin\\libEGL.dll',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
@@ -1001,14 +1009,6 @@
   ('PyQt5\\Qt5\\bin\\libGLESv2.dll',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
    'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\bin\\libGLESv2.dll',
-   'BINARY'),
-  ('PyQt5\\Qt5\\bin\\opengl32sw.dll',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\bin\\opengl32sw.dll',
-   'BINARY'),
-  ('PyQt5\\Qt5\\bin\\d3dcompiler_47.dll',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\bin\\d3dcompiler_47.dll',
    'BINARY'),
   ('PyQt5\\Qt5\\plugins\\styles\\qwindowsvistastyle.dll',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
@@ -1090,25 +1090,25 @@
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
    'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\QtCore.pyd',
    'EXTENSION'),
-  ('api-ms-win-crt-conio-l1-1-0.dll',
-   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
-   'Toolkit\\api-ms-win-crt-conio-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-crt-string-l1-1-0.dll',
-   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
-   'Toolkit\\api-ms-win-crt-string-l1-1-0.dll',
+  ('VCRUNTIME140.dll',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.752.0_x64__qbz5n2kfra8p0\\VCRUNTIME140.dll',
    'BINARY'),
   ('api-ms-win-crt-locale-l1-1-0.dll',
    'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
    'Toolkit\\api-ms-win-crt-locale-l1-1-0.dll',
    'BINARY'),
-  ('api-ms-win-crt-heap-l1-1-0.dll',
-   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
-   'Toolkit\\api-ms-win-crt-heap-l1-1-0.dll',
-   'BINARY'),
   ('api-ms-win-crt-process-l1-1-0.dll',
    'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
    'Toolkit\\api-ms-win-crt-process-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-crt-stdio-l1-1-0.dll',
+   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
+   'Toolkit\\api-ms-win-crt-stdio-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-crt-filesystem-l1-1-0.dll',
+   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
+   'Toolkit\\api-ms-win-crt-filesystem-l1-1-0.dll',
    'BINARY'),
   ('api-ms-win-crt-runtime-l1-1-0.dll',
    'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
@@ -1118,29 +1118,29 @@
    'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
    'Toolkit\\api-ms-win-crt-environment-l1-1-0.dll',
    'BINARY'),
+  ('api-ms-win-crt-time-l1-1-0.dll',
+   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
+   'Toolkit\\api-ms-win-crt-time-l1-1-0.dll',
+   'BINARY'),
   ('api-ms-win-crt-convert-l1-1-0.dll',
    'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
    'Toolkit\\api-ms-win-crt-convert-l1-1-0.dll',
    'BINARY'),
-  ('VCRUNTIME140.dll',
-   'C:\\Program '
-   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.752.0_x64__qbz5n2kfra8p0\\VCRUNTIME140.dll',
-   'BINARY'),
-  ('api-ms-win-crt-filesystem-l1-1-0.dll',
+  ('api-ms-win-crt-string-l1-1-0.dll',
    'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
-   'Toolkit\\api-ms-win-crt-filesystem-l1-1-0.dll',
+   'Toolkit\\api-ms-win-crt-string-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-crt-heap-l1-1-0.dll',
+   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
+   'Toolkit\\api-ms-win-crt-heap-l1-1-0.dll',
    'BINARY'),
   ('api-ms-win-crt-math-l1-1-0.dll',
    'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
    'Toolkit\\api-ms-win-crt-math-l1-1-0.dll',
    'BINARY'),
-  ('api-ms-win-crt-stdio-l1-1-0.dll',
+  ('api-ms-win-crt-conio-l1-1-0.dll',
    'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
-   'Toolkit\\api-ms-win-crt-stdio-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-crt-time-l1-1-0.dll',
-   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
-   'Toolkit\\api-ms-win-crt-time-l1-1-0.dll',
+   'Toolkit\\api-ms-win-crt-conio-l1-1-0.dll',
    'BINARY'),
   ('PyQt5\\Qt5\\bin\\Qt5Core.dll',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
@@ -1150,37 +1150,37 @@
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
    'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\bin\\Qt5Gui.dll',
    'BINARY'),
-  ('PyQt5\\Qt5\\bin\\Qt5DBus.dll',
+  ('PyQt5\\Qt5\\bin\\Qt5Svg.dll',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\bin\\Qt5DBus.dll',
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\bin\\Qt5Svg.dll',
    'BINARY'),
   ('api-ms-win-crt-utility-l1-1-0.dll',
    'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
    'Toolkit\\api-ms-win-crt-utility-l1-1-0.dll',
    'BINARY'),
-  ('PyQt5\\Qt5\\bin\\Qt5Quick.dll',
+  ('PyQt5\\Qt5\\bin\\MSVCP140.dll',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\bin\\Qt5Quick.dll',
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\bin\\MSVCP140.dll',
+   'BINARY'),
+  ('VCRUNTIME140_1.dll',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.752.0_x64__qbz5n2kfra8p0\\VCRUNTIME140_1.dll',
    'BINARY'),
   ('PyQt5\\Qt5\\bin\\Qt5Network.dll',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
    'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\bin\\Qt5Network.dll',
    'BINARY'),
+  ('PyQt5\\Qt5\\bin\\Qt5Quick.dll',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\bin\\Qt5Quick.dll',
+   'BINARY'),
   ('PyQt5\\Qt5\\bin\\Qt5WebSockets.dll',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
    'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\bin\\Qt5WebSockets.dll',
    'BINARY'),
-  ('PyQt5\\Qt5\\bin\\MSVCP140.dll',
+  ('PyQt5\\Qt5\\bin\\Qt5DBus.dll',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\bin\\MSVCP140.dll',
-   'BINARY'),
-  ('PyQt5\\Qt5\\bin\\Qt5Svg.dll',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\bin\\Qt5Svg.dll',
-   'BINARY'),
-  ('VCRUNTIME140_1.dll',
-   'C:\\Program '
-   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.752.0_x64__qbz5n2kfra8p0\\VCRUNTIME140_1.dll',
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\bin\\Qt5DBus.dll',
    'BINARY'),
   ('PyQt5\\Qt5\\bin\\VCRUNTIME140.dll',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
@@ -1230,37 +1230,93 @@
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
    'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\bin\\Qt5Qml.dll',
    'BINARY'),
-  ('libssl-3-x64-c6958deb2b91aabfeb78e97ea40a7b27.dll',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\libssl-3-x64-c6958deb2b91aabfeb78e97ea40a7b27.dll',
-   'BINARY'),
-  ('libcrypto-3-x64-065374394d7b34a1d4ca2d8996356fca.dll',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\libcrypto-3-x64-065374394d7b34a1d4ca2d8996356fca.dll',
-   'BINARY'),
   ('zlib1-6148dc5523ad848b47b8b4178a88939f.dll',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
    'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\zlib1-6148dc5523ad848b47b8b4178a88939f.dll',
-   'BINARY'),
-  ('libssh2-f45f6fb8f193227566d5ed5aafd931dd.dll',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\libssh2-f45f6fb8f193227566d5ed5aafd931dd.dll',
    'BINARY'),
   ('nghttp2-da15ef127cd3854e98a32c1def175d57.dll',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
    'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\nghttp2-da15ef127cd3854e98a32c1def175d57.dll',
    'BINARY'),
-  ('api-ms-win-core-datetime-l1-1-0.dll',
-   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
-   'Toolkit\\api-ms-win-core-datetime-l1-1-0.dll',
+  ('libssl-3-x64-c6958deb2b91aabfeb78e97ea40a7b27.dll',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\libssl-3-x64-c6958deb2b91aabfeb78e97ea40a7b27.dll',
    'BINARY'),
-  ('api-ms-win-core-rtlsupport-l1-1-0.dll',
-   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
-   'Toolkit\\api-ms-win-core-rtlsupport-l1-1-0.dll',
+  ('libssh2-f45f6fb8f193227566d5ed5aafd931dd.dll',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\libssh2-f45f6fb8f193227566d5ed5aafd931dd.dll',
    'BINARY'),
-  ('api-ms-win-core-profile-l1-1-0.dll',
+  ('libcrypto-3-x64-065374394d7b34a1d4ca2d8996356fca.dll',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\libcrypto-3-x64-065374394d7b34a1d4ca2d8996356fca.dll',
+   'BINARY'),
+  ('api-ms-win-core-console-l1-1-0.dll',
    'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
-   'Toolkit\\api-ms-win-core-profile-l1-1-0.dll',
+   'Toolkit\\api-ms-win-core-console-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-handle-l1-1-0.dll',
+   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
+   'Toolkit\\api-ms-win-core-handle-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-synch-l1-1-0.dll',
+   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
+   'Toolkit\\api-ms-win-core-synch-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-libraryloader-l1-1-0.dll',
+   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
+   'Toolkit\\api-ms-win-core-libraryloader-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-sysinfo-l1-1-0.dll',
+   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
+   'Toolkit\\api-ms-win-core-sysinfo-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-namedpipe-l1-1-0.dll',
+   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
+   'Toolkit\\api-ms-win-core-namedpipe-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-synch-l1-2-0.dll',
+   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
+   'Toolkit\\api-ms-win-core-synch-l1-2-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-file-l2-1-0.dll',
+   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
+   'Toolkit\\api-ms-win-core-file-l2-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-heap-l1-1-0.dll',
+   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
+   'Toolkit\\api-ms-win-core-heap-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-interlocked-l1-1-0.dll',
+   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
+   'Toolkit\\api-ms-win-core-interlocked-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-localization-l1-2-0.dll',
+   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
+   'Toolkit\\api-ms-win-core-localization-l1-2-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-processthreads-l1-1-0.dll',
+   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
+   'Toolkit\\api-ms-win-core-processthreads-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-timezone-l1-1-0.dll',
+   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
+   'Toolkit\\api-ms-win-core-timezone-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-string-l1-1-0.dll',
+   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
+   'Toolkit\\api-ms-win-core-string-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-errorhandling-l1-1-0.dll',
+   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
+   'Toolkit\\api-ms-win-core-errorhandling-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-debug-l1-1-0.dll',
+   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
+   'Toolkit\\api-ms-win-core-debug-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-file-l1-2-0.dll',
+   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
+   'Toolkit\\api-ms-win-core-file-l1-2-0.dll',
    'BINARY'),
   ('api-ms-win-core-util-l1-1-0.dll',
    'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
@@ -1270,303 +1326,131 @@
    'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
    'Toolkit\\api-ms-win-core-file-l1-1-0.dll',
    'BINARY'),
-  ('api-ms-win-core-synch-l1-2-0.dll',
+  ('api-ms-win-core-profile-l1-1-0.dll',
    'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
-   'Toolkit\\api-ms-win-core-synch-l1-2-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-interlocked-l1-1-0.dll',
-   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
-   'Toolkit\\api-ms-win-core-interlocked-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-handle-l1-1-0.dll',
-   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
-   'Toolkit\\api-ms-win-core-handle-l1-1-0.dll',
+   'Toolkit\\api-ms-win-core-profile-l1-1-0.dll',
    'BINARY'),
   ('api-ms-win-core-processthreads-l1-1-1.dll',
    'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
    'Toolkit\\api-ms-win-core-processthreads-l1-1-1.dll',
    'BINARY'),
-  ('api-ms-win-core-sysinfo-l1-1-0.dll',
-   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
-   'Toolkit\\api-ms-win-core-sysinfo-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-string-l1-1-0.dll',
-   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
-   'Toolkit\\api-ms-win-core-string-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-timezone-l1-1-0.dll',
-   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
-   'Toolkit\\api-ms-win-core-timezone-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-debug-l1-1-0.dll',
-   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
-   'Toolkit\\api-ms-win-core-debug-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-namedpipe-l1-1-0.dll',
-   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
-   'Toolkit\\api-ms-win-core-namedpipe-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-file-l2-1-0.dll',
-   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
-   'Toolkit\\api-ms-win-core-file-l2-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-synch-l1-1-0.dll',
-   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
-   'Toolkit\\api-ms-win-core-synch-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-console-l1-1-0.dll',
-   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
-   'Toolkit\\api-ms-win-core-console-l1-1-0.dll',
-   'BINARY'),
   ('api-ms-win-core-memory-l1-1-0.dll',
    'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
    'Toolkit\\api-ms-win-core-memory-l1-1-0.dll',
    'BINARY'),
-  ('api-ms-win-core-heap-l1-1-0.dll',
-   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
-   'Toolkit\\api-ms-win-core-heap-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-libraryloader-l1-1-0.dll',
-   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
-   'Toolkit\\api-ms-win-core-libraryloader-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-errorhandling-l1-1-0.dll',
-   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
-   'Toolkit\\api-ms-win-core-errorhandling-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-localization-l1-2-0.dll',
-   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
-   'Toolkit\\api-ms-win-core-localization-l1-2-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-file-l1-2-0.dll',
-   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
-   'Toolkit\\api-ms-win-core-file-l1-2-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-processthreads-l1-1-0.dll',
-   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
-   'Toolkit\\api-ms-win-core-processthreads-l1-1-0.dll',
-   'BINARY'),
   ('api-ms-win-core-processenvironment-l1-1-0.dll',
    'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
    'Toolkit\\api-ms-win-core-processenvironment-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-rtlsupport-l1-1-0.dll',
+   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
+   'Toolkit\\api-ms-win-core-rtlsupport-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-datetime-l1-1-0.dll',
+   'C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance '
+   'Toolkit\\api-ms-win-core-datetime-l1-1-0.dll',
    'BINARY')],
  [],
  [],
  [('base_library.zip',
-   'C:\\Users\\Mr. '
-   'Nobody\\Documents\\Projects\\SpotifyOverlay\\SpotifyOverlay\\src\\build\\SpotifyOverlay\\base_library.zip',
-   'DATA'),
-  ('certifi\\cacert.pem',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\certifi\\cacert.pem',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\SpotifyOverlay - '
+   'git\\SpotifyOverlay\\SpotifyOverlay\\SpotifyOverlay\\src\\build\\SpotifyOverlay\\base_library.zip',
    'DATA'),
   ('certifi\\py.typed',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
    'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\certifi\\py.typed',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_tr.qm',
+  ('certifi\\cacert.pem',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_tr.qm',
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\certifi\\cacert.pem',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_zh_CN.qm',
+  ('PyQt5\\Qt5\\translations\\qtbase_de.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_zh_CN.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_help_ar.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_ar.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_lv.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_lv.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_ca.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_ca.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_help_it.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_it.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_ru.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_ru.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_sk.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_sk.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_fi.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_fi.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_ko.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_ko.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_help_es.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_es.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_it.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_it.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_hu.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_hu.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_help_pl.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_pl.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_hu.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_hu.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_fa.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_fa.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_bg.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_bg.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_gd.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_gd.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_cs.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_cs.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_help_de.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_de.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_help_uk.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_uk.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_help_ca.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_ca.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_help_hu.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_hu.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_pl.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_pl.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_pl.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_pl.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_help_sk.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_sk.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_ar.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_ar.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_ar.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_ar.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_help_da.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_da.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_uk.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_uk.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_help_ko.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_ko.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_ja.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_ja.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_help_sl.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_sl.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_fr.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_fr.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_de.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_de.qm',
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_de.qm',
    'DATA'),
   ('PyQt5\\Qt5\\translations\\qt_gl.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
    'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_gl.qm',
    'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_it.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_it.qm',
+   'DATA'),
   ('PyQt5\\Qt5\\translations\\qt_lv.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
    'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_lv.qm',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_ca.qm',
+  ('PyQt5\\Qt5\\translations\\qtbase_pl.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_ca.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_it.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_it.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_help_bg.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_bg.qm',
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_pl.qm',
    'DATA'),
   ('PyQt5\\Qt5\\translations\\qt_help_tr.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
    'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_tr.qm',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_help_fr.qm',
+  ('PyQt5\\Qt5\\translations\\qtbase_ca.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_fr.qm',
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_ca.qm',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_fr.qm',
+  ('PyQt5\\Qt5\\translations\\qt_bg.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_fr.qm',
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_bg.qm',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_bg.qm',
+  ('PyQt5\\Qt5\\translations\\qtbase_zh_TW.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_bg.qm',
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_zh_TW.qm',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_help_zh_TW.qm',
+  ('PyQt5\\Qt5\\translations\\qt_ru.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_zh_TW.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_pt.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_pt.qm',
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_ru.qm',
    'DATA'),
   ('PyQt5\\Qt5\\translations\\qtbase_da.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
    'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_da.qm',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_sl.qm',
+  ('PyQt5\\Qt5\\translations\\qtbase_fi.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_sl.qm',
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_fi.qm',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_uk.qm',
+  ('PyQt5\\Qt5\\translations\\qt_help_gl.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_uk.qm',
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_gl.qm',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_help_cs.qm',
+  ('PyQt5\\Qt5\\translations\\qt_hu.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_cs.qm',
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_hu.qm',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_da.qm',
+  ('PyQt5\\Qt5\\translations\\qt_help_zh_TW.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_da.qm',
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_zh_TW.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_ja.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_ja.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qtbase_hu.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_hu.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_fa.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_fa.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qtbase_ar.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_ar.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qtbase_cs.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_cs.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qtbase_he.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_he.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_fi.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_fi.qm',
    'DATA'),
   ('PyQt5\\Qt5\\translations\\qt_help_ru.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
@@ -1576,91 +1460,207 @@
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
    'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_ko.qm',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_en.qm',
+  ('PyQt5\\Qt5\\translations\\qtbase_sk.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_en.qm',
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_sk.qm',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_help_ja.qm',
+  ('PyQt5\\Qt5\\translations\\qt_da.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_ja.qm',
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_da.qm',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_sv.qm',
+  ('PyQt5\\Qt5\\translations\\qt_help_es.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_sv.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_es.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_es.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_he.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_he.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_help_en.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_en.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_ja.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_ja.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_es.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_es.qm',
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_es.qm',
    'DATA'),
   ('PyQt5\\Qt5\\translations\\qt_zh_TW.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
    'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_zh_TW.qm',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_en.qm',
+  ('PyQt5\\Qt5\\translations\\qt_help_en.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_en.qm',
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_en.qm',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_help_zh_CN.qm',
+  ('PyQt5\\Qt5\\translations\\qt_pt.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_zh_CN.qm',
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_pt.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_sv.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_sv.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_sk.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_sk.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_de.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_de.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qtbase_fr.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_fr.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qtbase_uk.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_uk.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_gd.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_gd.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_help_sl.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_sl.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_help_fr.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_fr.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_help_it.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_it.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_ar.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_ar.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_help_bg.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_bg.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_sl.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_sl.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qtbase_tr.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_tr.qm',
    'DATA'),
   ('PyQt5\\Qt5\\translations\\qt_he.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
    'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_he.qm',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_fi.qm',
+  ('PyQt5\\Qt5\\translations\\qt_es.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_fi.qm',
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_es.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_help_de.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_de.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_help_ja.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_ja.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_help_sk.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_sk.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_ko.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_ko.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_help_ca.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_ca.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_pl.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_pl.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_help_da.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_da.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_help_uk.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_uk.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_help_pl.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_pl.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_help_cs.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_cs.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_help_zh_CN.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_zh_CN.qm',
    'DATA'),
   ('PyQt5\\Qt5\\translations\\qt_lt.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
    'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_lt.qm',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_de.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_de.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_cs.qm',
-   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_cs.qm',
-   'DATA'),
   ('PyQt5\\Qt5\\translations\\qtbase_ru.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
    'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_ru.qm',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_sk.qm',
+  ('PyQt5\\Qt5\\translations\\qt_help_ko.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_sk.qm',
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_ko.qm',
    'DATA'),
   ('PyQt5\\Qt5\\translations\\qt_tr.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
    'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_tr.qm',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_help_gl.qm',
+  ('PyQt5\\Qt5\\translations\\qtbase_es.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_gl.qm',
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_es.qm',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_zh_TW.qm',
+  ('PyQt5\\Qt5\\translations\\qtbase_en.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_zh_TW.qm',
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_en.qm',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qt_gd.qm',
+  ('PyQt5\\Qt5\\translations\\qtbase_ja.qm',
    'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
-   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_gd.qm',
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_ja.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qtbase_gd.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_gd.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qtbase_lv.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_lv.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_cs.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_cs.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_uk.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_uk.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_zh_CN.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_zh_CN.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_fr.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_fr.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qtbase_bg.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_bg.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_help_ar.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_ar.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_en.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_en.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_ca.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_ca.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qt_help_hu.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qt_help_hu.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qtbase_it.qm',
+   'C:\\Users\\Mr. Nobody\\Documents\\Projects\\Projects On '
+   'Website\\SpotifyOverlay\\SpotifyOverlay\\src\\env\\Lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_it.qm',
    'DATA')])
