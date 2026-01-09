@@ -1,0 +1,3 @@
+([('SpotifyOverlay',
+   '/Users/use/Documents/Projects/SpotifyOverlay/SpotifyOverlay/SpotifyOverlay/SpotifyOverlay/src/dist/SpotifyOverlay',
+   'EXECUTABLE')],)
