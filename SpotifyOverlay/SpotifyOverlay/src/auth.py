@@ -20,7 +20,7 @@ c = pycurl.Curl()
 ###auth, print function names that call refresh token.
 
 clientId = "b7c8bd0c72dc41afa22f2749bfb9ceef"
-redirectUri = 'https://jordancw.com/storeAuthCode'
+redirectUri = 'https://jordancw.pythonanywhere.com/storeAuthCode'
 scope = "user-modify-playback-state user-read-playback-state user-read-currently-playing user-library-modify user-library-read"
 authUrl = "https://accounts.spotify.com/authorize"
 tokenUrl = "https://accounts.spotify.com/api/token"
@@ -69,7 +69,7 @@ def getAuthCode():
 
 
     #request auth code from my website
-    getToken_url = "https://jordancw.com/getAuthCode"
+    getToken_url = "https://jordancw.pythonanywhere.com/getAuthCode"
     
     try:
         response = requests.get(getToken_url)
@@ -117,7 +117,7 @@ def getAuthCode():
     while(code == None or attempts < 100):
         print("STATUS: ", response.status_code)
         time.sleep(2)
-        if response.status_code == 200:
+        if response.status_code == 200 and response.content:
             data = dict(json.loads(response.content.decode('utf-8')))
             print("AUTH DATA", data)
             if data != None:
