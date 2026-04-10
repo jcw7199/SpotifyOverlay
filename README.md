@@ -10,6 +10,7 @@ For Windows:
 Run the "SpotifyOverlay" executable file within the Windows folder.
 
 For Mac/Linux:
-Go to the SpotifyOverlay/src folder. Open terminal in that folder. run the command "python3 SpotifyOverlay.py".
+Run the "SpotifyOverlay" executable file within the Mac folder.
 
+**Please allow about 5 - 10 seconds for the application to load. Thank you!**
 To see a video demo of the app, please visit my website: https://jcw7199.pythonanywhere.com/spotify
