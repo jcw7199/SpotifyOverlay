@@ -1,3 +1,4 @@
+import asyncio
 import json
 import time
 import pycurl
@@ -13,6 +14,7 @@ import urllib.parse
 import server
 from PyQt6.QtWidgets import QMessageBox
 from PyQt6.QtCore import *
+
 
 buffer = BytesIO()
 c = pycurl.Curl()
@@ -50,7 +52,7 @@ def getCodeChallenge():
     #print("CODE CHALLENGE", code_challenge)
     return code_challenge
 
-def getAuthCode():
+async def getAuthCode():
     global authUrl, auth_token
     authCodeParams =  {
       'response_type': 'code',
@@ -272,10 +274,11 @@ def getNewTokens():
         print("get new auth and refresh token")
             #getTokens()
       
-def getAuthToken():
+async def getAuthToken():
    global auth_token
    if auth_token == None:
-        return getAuthCode()
+        code = await getAuthCode()
+        return code
    elif auth_token == False:
       quit()
    else:

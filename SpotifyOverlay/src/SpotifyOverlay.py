@@ -598,11 +598,11 @@ def toggleRepeat():
     
 
 def startSpotify():
-    restart = getSpotify.getActiveDevice()
+    device, deviceActive = getSpotify.getActiveDevice()
     startAttempts = 0
-    if restart[0] != None:
-        ("starting spotify... ", restart)
-        if restart[1] == True:
+    if device != None:
+        print("starting spotify on", device['name'], " ...")
+        if deviceActive == True:
             getSpotify.startPlayback()
         else:
             getSpotify.restartDevice()
