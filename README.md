@@ -10,8 +10,16 @@ To Run, simply download the project as a zip file.
 
 For Windows: Run the "SpotifyOverlay.bat" file.
 
+<<<<<<< HEAD
 For Mac: Run the "SpotifyOverlay.sh" file.
 
 For Linux: Run the "SpotifyOverlay_linux.sh" file.
 
 To see a video demo of the app, please visit my website: https://jordancw.pythonanywhere.com/spotify
+=======
+For Mac/Linux:
+Run the "SpotifyOverlay" executable file within the Mac folder.
+
+**Please allow about 5 - 10 seconds for the application to load. Thank you!**
+To see a video demo of the app, please visit my website: https://jcw7199.pythonanywhere.com/spotify
+>>>>>>> ee50bdf (Update README.md)
