@@ -6,9 +6,35 @@ I built it on python, utilizing PyQt5 for the GUI and pyCurl to access the Spoti
 
 To Run, simply download the project as a zip file.
 
-For Windows: Run the "SpotifyOverlay" executable file within the Windows folder.
+**Requires Python 3.9 and higher**
 
-For Mac/Linux: Go to the SpotifyOverlay/src folder. Open terminal in that folder. run the command "python3 SpotifyOverlay.py".
+Go to the SpotifyOverlay/src folder
 
-To see a video demo of the app, please visit my website: https://jcw7199.pythonanywhere.com/spotify
+For Windows: 
+Run these commands:
+At first run, run this command.
+```
+pip install -r requirements.txt
+py SpotifyOverlay.py
+```
+To run after the first time:
+
+```
+py SpotifyOverlay.py
+```
+
+For Mac/Linux:
+
+Run these commands:
+At first run, run this command.
+```
+pip3 install -r requirements.txt
+python3 SpotifyOverlay.py
+```
+To run after the first time:
+
+```
+python3 SpotifyOverlay.py
+```
+To see a video demo of the app, please visit my website: https://jordancw.pythonanywhere.com/spotify
 
