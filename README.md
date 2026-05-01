@@ -8,7 +8,7 @@ To Run, simply download the project as a zip file.
 
 **Requires Python 3.9 and higher**
 
-Go to the SpotifyOverlay/src folder
+Go to the **SpotifyOverlay/src** folder
 
 For Windows: 
 Run these commands:
