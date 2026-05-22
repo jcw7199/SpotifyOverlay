@@ -95,9 +95,19 @@ class MsgBox(QMessageBox):
         self.setText(message)
         self.setWindowTitle(title)
         self.setIcon(icon)
+        self.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint)
 
     def showMsg(self):
         self.show()
+        self.raise_()
+        self.activateWindow()
+    
+    def execMsg(self):
+        self.exec()
+
+    def closeEvent(self, event):
+        print("Message box closed")
+        event.accept()
 
 class Widget(QWidget):
     def __init__(self):
@@ -584,9 +594,14 @@ async def changeVolume(upOrDown):
     if changeable == False:
         
         print("Device does not support changing volume through this app.")
-        msg = MsgBox("Device does not support changing volume through this app. Devices such as smartphones " +
-                    "usually dont allow for volume changes.", "Error: Volume cant be changed", QMessageBox.Icon.Information)
-
+        if msg == None:
+            msg = MsgBox("Device does not support changing volume through this app. Devices such as smartphones " +
+                        "usually dont allow for volume changes.", "Error: Volume cant be changed", QMessageBox.Icon.Information)
+        else:
+            msg.setText("Device does not support changing volume through this app. Devices such as smartphones " +
+                        "usually dont allow for volume changes.")
+            msg.setWindowTitle("Error: Volume cant be changed")
+            msg.setIcon(QMessageBox.Icon.Information)
         msg.showMsg()           
         
             
@@ -655,11 +670,10 @@ async def toggleRepeat():
     else:
         return "Can't Repeat"
     
-async def startSpotify():
-    #await asyncio.sleep(2)
+async def startSpotify(attempts):
+    global msg
     dev = await getSpotify.getActiveDevice()
     device, deviceActive = dev
-    startAttempts = 0
     if device != None:
         print("starting spotify on", device['name'], " ...")
         if deviceActive == True:
@@ -668,29 +682,34 @@ async def startSpotify():
             await getSpotify.restartDevice()
     else:
         #wait for a device.
-        #popup saying to start spotify 
-        print("No device found")
-        msg = QMessageBox()
-        flags = QtCore.Qt.WindowType.WindowStaysOnTopHint
-        msg.setText("No device found, please start spotify on one of your devices")
-        msg.setWindowFlags(flags)
-        msg.show()
+        #popup saying to start spotify
+
+        if attempts == 0:
+            print("No device found")
+            if msg == None:
+                msg = MsgBox("No device found, please start spotify on one of your devices.", "Error: No device found", QMessageBox.Icon.Warning)
+            else:
+                msg.setText("No device found, please start spotify on one of your devices.")
+                msg.setWindowTitle("Error: No device found")
+                msg.setIcon(QMessageBox.Icon.Warning)
+            
+            msg.showMsg()  
         
-        while device == None:
+        if device == None:
             print("waiting for spotify to start...")
-            startAttempts += 1
-            time.sleep(3)
+            attempts += 1
+            await asyncio.sleep(1)
             dev = await getSpotify.getActiveDevice()
             device, deviceActive = dev
-            if startAttempts > 100:
-                msg = QMessageBox()
-                flags = QtCore.Qt.WindowType.WindowStaysOnTopHint
+            if attempts > 60:
+                print("No device found, closing app...")
                 msg.setText("No device found, closing overlay.")
-                msg.setWindowFlags(flags)
-                msg.show()
+                msg.setWindowTitle("Error: No device found")
+                msg.setIcon(QMessageBox.Icon.Warning)
+                msg.execMsg()
                 return False
-        print("AGAIN!!!!!!")
-        startSpotify()
+                
+            return await startSpotify(attempts)
 
 
 '''
@@ -755,7 +774,7 @@ async def main(app):
     myWindow.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
     
     myWindow.show()
-    start = await startSpotify()
+    start = await startSpotify(0)
     if start == False:
         print("closing application")
         exit(1)
