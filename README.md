@@ -6,7 +6,7 @@ I built it on python, utilizing PyQt5 for the GUI and pyCurl to access the Spoti
 
 To Run, simply download the project as a zip file.
 
-**Requires Python 3.9 and higher**
+**Requires Python 3.14.2 and higher**
 
 Go to the **SpotifyOverlay/src** folder
 
