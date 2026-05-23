@@ -13,6 +13,7 @@ from qasync import QEventLoop, asyncClose, asyncSlot
 
 import time
 import getSpotify
+import auth
 import psutil
 #pyqt.configure(text=text)
 
@@ -201,13 +202,6 @@ class Window(QMainWindow):
         self.setStyleSheet("background-color: black")
         self.offset = None
         self.initUI()   
-    
-    @asyncClose
-    async def closeEvent(self, event: QCloseEvent):
-        """
-        Use async code in a closeEvent by decorating it with @asyncClose.
-        """
-        pass
 
     def initUI(self):
 
@@ -230,13 +224,13 @@ class Window(QMainWindow):
 
 
         #static value buttons.
-        self.restartButton = Button("Restart", toggleRestart, self.myWidget)
+        self.restartButton = Button("Restart", toggleRestartSlot, self.myWidget)
         self.volumePlusButton = Button("Vol +", lambda: toggleVolume('up'), self.myWidget)
         self.volumeMinusButton = Button("Vol -", lambda: toggleVolume('down'), self.myWidget)
 
 
-        self.previousButton = Button("<<", togglePrevious, self.myWidget)
-        self.nextButton = Button(">>", toggleNext, self.myWidget)
+        self.previousButton = Button("<<", togglePreviousSlot, self.myWidget)
+        self.nextButton = Button(">>", toggleNextSlot, self.myWidget)
         
 
         self.minimzeButton = Button("-", self.minimizeWindow, self.myWidget)
@@ -589,7 +583,9 @@ def toggleVolume(upOrDown):
 
 async def changeVolume(upOrDown):
     global msg
-    changeable = await getSpotify.volumeChanageable()
+
+    await asyncio.sleep(0.5)
+    changeable = await getSpotify.volumeChangeable()
 
     if changeable == False:
         
@@ -605,26 +601,42 @@ async def changeVolume(upOrDown):
         msg.showMsg()           
         
             
-    else:
+    elif changeable == True:
         if upOrDown == 'up':
             await getSpotify.volumeUp()
         else:
             await getSpotify.volumeDown()
 
 
-def toggleNext():
-    asyncio.ensure_future(getSpotify.nextPlayback())
+def toggleNextSlot():
+    asyncio.ensure_future(toggleNext())
 
-def togglePrevious():
-    asyncio.ensure_future(getSpotify.previousPlayback())
+async def toggleNext():
+    await asyncio.sleep(0.5)
+    await getSpotify.nextPlayback()
 
-def toggleRestart():
-    asyncio.ensure_future(getSpotify.restartSong())
+
+def togglePreviousSlot():
+    asyncio.ensure_future(togglePrevious())
+
+async def togglePrevious():
+    await asyncio.sleep(0.5)
+    await getSpotify.previousPlayback()
+
+
+def toggleRestartSlot():
+    asyncio.ensure_future(toggleRestart())
+
+async def toggleRestart():
+    await asyncio.sleep(0.5)
+    await getSpotify.restartSong()
 
 def toggleLikeSlot():
     asyncio.ensure_future(toggleLike())
 
 async def toggleLike():
+    await asyncio.sleep(0.5)
+
     await getSpotify.toggleLikeSong()
     state = await getSpotify.getSongLikedState()
 
@@ -638,7 +650,8 @@ def togglePlaybackSlot():
 
 async def togglePlayback():
     print("Toggle playback")
-    
+    await asyncio.sleep(0.5)
+
     await getSpotify.togglePlayback()
     state = await getSpotify.getPlaybackState()
     if state == True:
@@ -650,12 +663,14 @@ def toggleShuffleSlot():
     asyncio.ensure_future(toggleShuffle())
 
 async def toggleShuffle():
+    await asyncio.sleep(0.5)
     await getSpotify.toggleShuffle()
 
 def toggleRepeatSlot():
     asyncio.ensure_future(toggleRepeat())
 
 async def toggleRepeat():
+    await asyncio.sleep(0.5)
 
     await getSpotify.toggleRepeat()
 
@@ -712,57 +727,9 @@ async def startSpotify(attempts):
             return await startSpotify(attempts)
 
 
-'''
-def checkIfAppIsRunning():
-
-    processes =  []
-    current_proc = psutil.Process(os.getpid())
-
-    #look for process with the same cmdline.
-    for p in psutil.process_iter():
-        try:
-            if(current_proc.name() == p.name()):
-                    if(current_proc.cmdline() == p.cmdline()):
-                        
-                        processes.append(p)
-                        print("PROC FOUND: CMD=", p.cmdline())
-                        print("Name: ", p.name())
-                        print("EXE:  ", p.exe())
-                        print("CWD: ", p.cwd())
-        except Exception as e:
-            print("Error: ", e)
-
-
-    #if there is a proc with this cmdline running, cancel this process.
-    if len(processes) > 1:
-        
-
-        msg = QMessageBox()
-
-        #add flag so that window pops up
-        flags = Qt.WindowFlags(Qt.WindowStaysOnTopHint)
-        msg.setWindowTitle(f"Error: APP IS ALREADY RUNNING.")
-        msg.setText("App is already running.\nIf you're having issues, end the process from the task manager and restart the app.")
-        msg.setWindowFlags(flags)
-        msg.show()
-        flags = msg.windowFlags() 
-        
-        #remove flag after initial pop up.
-        flags &= ~Qt.WindowStaysOnTopHint
-        msg.setWindowFlags(flags)
-
-        msg.exec_()
-
-        p = psutil.Process(os.getpid())
-        for child in p.children():
-            child.kill()
-        p.kill()
-        exit(0)
-'''
 
 async def main(app):
     global threads
-    #checkIfAppIsRunning()
 
     app_close_event = asyncio.Event()
     app.aboutToQuit.connect(app_close_event.set)
@@ -770,41 +737,25 @@ async def main(app):
     myWindow = Window(QtCore.Qt.WindowType.FramelessWindowHint | QtCore.Qt.WindowType.WindowStaysOnTopHint)
     myWindow.setGeometry(500, 500, 50, 30)
     
+    temp = QMainWindow()
+    temp.resize(1,1)
+    temp.show()
+    await auth.initWindow(temp)
+    
 
     myWindow.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-    
-    myWindow.show()
+
     start = await startSpotify(0)
     if start == False:
         print("closing application")
         exit(1)
-
+    temp.close()
     print("moving on")
+    
+    myWindow.show()
 
     myWindow.initThreads()
 
-    #myWindow.start_work()
-        
-    '''
-    myWindow.start_work(myWindow.progressbar, int, updateSongProgress)
-
-    myWindow.start_work(myWindow.progressbar, str, updateSongTime)
-
-    myWindow.start_work(myWindow.currentSong, str, updateSongLabelText)
-
-    myWindow.start_work(myWindow.currentDevice, str, updateDeviceLabelText)
-    '''
-
-    '''
-    
-    
-  
-    threads.append(updateLikeTh)
-    threads.append(updatePauseTh)
-    threads.append(updateShuffleTh)
-    threads.append(updateRepeatTh)
-    threads.append(refreshTokenTh)
-    '''''''''
     await app_close_event.wait()
     print("moving on")
 

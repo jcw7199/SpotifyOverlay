@@ -4,41 +4,57 @@ import urllib.request
 import webbrowser
 
 HEADER = 64
-PORT = 4070
+PORT = 50000
 HOST ="127.0.0.1"
 ADDR = (HOST, PORT)
-auth_code = ""
 
-def get_auth_code():
-    global auth_code
+class Server():
+    auth_code = ""
+    timeOutStatus = False
+    serv = socket.socket()
+
+def startServer():
     #print("starting server")
-    serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    serv.bind(ADDR)
-    serv.listen(5)
+    Server.timeOutStatus = False
+    Server.serv = socket.socket()
+    Server.serv.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
+    Server.serv.bind(ADDR)
+    Server.serv.listen(2)
+    Server.serv.settimeout(10)
     #print("server listening")
-    serv.settimeout(300)
-    while True:
-        communication_socket, address = serv.accept()
+
+    try:
+        communication_socket, address = Server.serv.accept()
         #print("connected to ", address )
-        message = communication_socket.recv(1024).decode('utf-8')
+        communication_socket.settimeout(10)
+    
+        #MAKE SURE MESSAGE IS FROM SPOTIFY
+        message = communication_socket.recv(4096).decode('utf-8')
         #print("Message: ", message)
+        code = None
         if "code" in message:
-            auth_code = message.split("code=")[1]
-            auth_code = auth_code.split(' ')[0]
+            code = message.split("code=")[1]
+            code = code.split('&')[0]
 
         else:
-            auth_code = "Declined"
-        reply = "<html>Hello</html>"
-        #<script> window.close() </script>
+            code = "declined"
+
+        print("AUTH CODE: ", code)
+
+        reply = "<script> window.close() </script>"
         #print("---------SENDING-------")
         response = 'HTTP/1.1 200 OK\nConnection: close\n\n' + reply
-        
-       # print("SENDING----------")
         communication_socket.send(response.encode('utf-8'))
-       # print("SENT--------------")
-        time.sleep(2)
+
         communication_socket.close()
-        #print("Connection ended", address)
-        serv.settimeout(1)
-        serv.close()
-        return auth_code
+        Server.serv.close()
+
+        Server.auth_code = code
+    except socket.timeout:
+        print("Server timed out")
+        Server.timeOutStatus = True
+
+def closeServer():
+    print("closing server")
+    Server.serv.close()

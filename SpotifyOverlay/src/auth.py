@@ -1,5 +1,6 @@
 import asyncio
 import json
+import socket
 import time
 import pycurl
 from io import BytesIO
@@ -13,18 +14,19 @@ import requests
 import urllib.parse
 import server
 from PyQt6 import QtCore
-from PyQt6.QtWidgets import QMessageBox
+from PyQt6.QtWidgets import QMessageBox, QApplication, QMainWindow, QDialog, QVBoxLayout, QLabel, QPushButton
 from PyQt6.QtCore import *
 import string
 import secrets
+import threading
 
 buffer = BytesIO()
 c = pycurl.Curl()
 
-###auth, print function names that call refresh token.
 
 clientId = "b7c8bd0c72dc41afa22f2749bfb9ceef"
-redirectUri = 'https://jordancw.pythonanywhere.com/storeAuthCode'
+redirectUri = 'http://127.0.0.1:50000'
+#redirectUri = 'https://jordancw.pythonanywhere.com/storeAuthCode'
 scope = "user-modify-playback-state user-read-playback-state user-read-currently-playing user-library-modify user-library-read"
 authUrl = "https://accounts.spotify.com/authorize"
 tokenUrl = "https://accounts.spotify.com/api/token"
@@ -33,20 +35,19 @@ codeUrl = "https://jordancw.pythonanywhere.com/getAuthCode"
 
 
 INVALID_CODE_ERROR_MSG = 'Invalid authorization code'
-
+ACCESS_DENIED_ERROR_MSG = 'access_denied'
 class Auth():
     auth_token = None
     refresh_token = None
     verifier = []
     refreshing = None
     token_error = None
+    window = None
 
 def getCodeVerifier():
     
     possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
     return ''.join(possible[secrets.randbelow(len(possible))] for _ in range(64))
-
-
 
 def getCodeChallenge():
     Auth.verifier = getCodeVerifier()
@@ -58,7 +59,7 @@ def getCodeChallenge():
     #print("CODE CHALLENGE", code_challenge)
     return code_challenge
 
-def getAuthCode():
+async def getAuthCode():
     state = ''.join(getCodeVerifier())
 
     authCodeParams =  {
@@ -75,166 +76,65 @@ def getAuthCode():
     print("getting auth code")
     #url to make authorization request to spotify for token
     auth_request_url = f"{authUrl}?{urllib.parse.urlencode(authCodeParams)}"
-
+    
+    serverThread = threading.Thread(target=server.startServer)
+    serverThread.start()
+    
+    await asyncio.sleep(3)
     #open window asking for user authentication.
     webbrowser.open_new(auth_request_url)
-
-    getCodeParams = {
-        'state': state
-    }
-    #request auth code from my website
-    getCode_url = f"{codeUrl}?{urllib.parse.urlencode(getCodeParams)}"
     
-    print(getCode_url)
-
-    try:
-        response = requests.get(getCode_url)
-
-        print("Response: ", response.content.decode('utf-8'))
-
-        if response.status_code >= 400 or response.status_code == None:
-            msg = QMessageBox()
-            #display connection error due to server message
-
-            #add flag so that window pops up
-            flags = QtCore.Qt.WindowType.WindowStaysOnTopHint
-            msg.setWindowTitle(f"Error: {response.status_code} Connection Error")
-            msg.setText("Trouble connecting to server.\nIf issue persists, try updating the app to the latest version at github.com/jcw7199/SpotifyOverlay")
-            msg.setWindowFlags(flags)
-            msg.show()
-            flags = msg.windowFlags() 
-            
-            #remove flag after initial pop up.
-            flags &= ~QtCore.Qt.WindowType.WindowStaysOnTopHint
-            msg.setWindowFlags(flags)
-
-            return exit(1)
-
-
-        code = None
-        attempts = 0
-        failures = 0
-        timeout = 0
-
-        # try to get token 100 times, letting the user know, every 10th attempt, 
-        # to try re authenticating or restart the app 
-        while(code == None and attempts < 100 and timeout < 60):
-            print("STATUS: ", response.status_code)
-            time.sleep(2)
-            if response.status_code == 200 and response.content:
-                data = dict(json.loads(response.content.decode('utf-8')))
-                print("AUTH DATA", data)
-                if data != None:
-                    code = data.get('code')
-                    state = data.get('state')
-                    print("AUTH CODE", code)
-
-                    if code != None:
-                        # 'state' variable is sent to redirect uri when user authenticates app.
-                        # this will be compared against the state variable currently stored on my server.
-                        # if they dont match, continue to query the server for 60 seconds for this to change, 
-                        # checking the data once per second until they match.
-
-                        # The idea is to make sure the user has actually interacted with browser tab that has been opened.
-                        # If they haven't, the state wont match, even if their is an old code there.
-                        # Once the user authenticates, the state on my server will update to match.
-                        
-                        if state != authCodeParams["state"]:
-
-                            while state != authCodeParams["state"] and timeout < 60:
-                                time.sleep(1)
-                                print("Old state - current state: ", state)
-                                try:
-                                    response = requests.get(getCode_url)
-                                    print("Response: ", response.content.decode('utf-8'))
-
-                                    data = dict(json.loads(response.content.decode('utf-8')))
-                                except requests.exceptions.ConnectionError:
-
-                                    #display connection error message
-                                    msg = QMessageBox()
-
-                                    #add flag so that window pops up
-                                    flags = QtCore.Qt.WindowType.WindowStaysOnTopHint
-                                    msg.setWindowTitle("Error: Connection Error")
-                                    msg.setText("Please connect to the internet and try again.")
-                                    msg.setWindowFlags(flags)
-                                    msg.show()
-                                    flags = msg.windowFlags() 
-                                    
-                                    #remove flag after initial pop up.
-                                    flags &= ~QtCore.Qt.WindowType.WindowStaysOnTopHint
-                                    msg.setWindowFlags(flags)
-
-                                    msg.exec_()
-                                    return exit(1)
-                            
-
-                                code = data.get('code')
-                                state = data.get('state')
-                                print("AUTH CODE", code)
-                                print("State: ", state)
-                                timeout += 1
-                            #web browser opens on every call of get tokens -- FIX
-                        
-                        tokens = generateTokens(code)
-                        print("AUTH TOKENS: ", tokens)
-                        
-                        if tokens["error"] != None:
-                            failures += 1
-                                #every 10 failures, display error message to user
-                            if failures % 10 == 0:
-                                msg = QMessageBox()
-
-                                #add flag so that window pops up
-                                flags = QtCore.Qt.WindowType.WindowStaysOnTopHint
-                                msg.setWindowTitle("Error: Spotify Overlay Error")
-                                msg.setText("Trouble connecting to account, please authenticate again or close this window to quit the application.")
-                                msg.setStandardButtons(QMessageBox.Retry | QMessageBox.Close)
-                                msg.setWindowState(flags)
-                                msg.show()
-                                flags = msg.windowState() 
-                                
-                                #remove flag after initial pop up.
-                                flags &= ~QtCore.Qt.WindowType.WindowStaysOnTopHint
-                                msg.setWindowFlags(flags)
-
-                                #get popup result. if they closed the window instead of retrying, exit app.
-                                result = msg.exec_()
-                                if result == QMessageBox.Retry:
-                                    webbrowser.open_new(auth_request_url)
-                                else:
-                                    return exit(1)
-            attempts += 1
-            response = requests.get(getCode_url)
-
-        #after 100 attempts, exit the app.
-        if attempts == 100:
-            return exit(1)
+    while server.Server.auth_code == "" and server.Server.timeOutStatus == False:
+        print("Code: ", server.Server.auth_code)
+        await asyncio.sleep(3)
         
-         #return code
-        print("RETURNING CODE: ", code)
-    except requests.exceptions.ConnectionError:
-        print("CONNECTION ERROR")
-        #display connection error message
-        msg = QMessageBox()
-
-        #add flag so that window pops up
-        flags = msg.windowFlags() & QtCore.Qt.WindowType.WindowStaysOnTopHint
-        msg.setWindowTitle("Error: Connection Error")
-        msg.setText("Please connect to the internet and try again.")
-        msg.setWindowFlags(flags)
-        msg.show() 
-        flags = msg.windowFlags() 
-        
-        #remove flag after initial pop up.
-        flags &= ~QtCore.Qt.WindowType.WindowStaysOnTopHint
-        msg.setWindowFlags(flags)
-        #return exit(1)
     
+    server.closeServer()
+
+    if server.Server.timeOutStatus == True:
+        print("Server timed out")
+        return await retryConnection()        
+        
+
+    if server.Server.auth_code != "":
+        if server.Server.auth_code == 'declined':
+            print("Declined")
+            exit(1)
+        else:
+            #try to use auth code to get tokens.
+            tokens = generateTokens(server.Server.auth_code)
+            print("AUTH TOKENS: ", tokens["error"])
+             
+            if tokens["error"] != None:
+                return await retryConnection()           
+
+    return True
 
 
-   
+                
+async def retryConnection():
+    dlg = QMessageBox(Auth.window)
+    dlg.setWindowTitle(f"Error: Account Connection Error")
+    dlg.setText("Trouble connecting to account. Please authenticate again." + 
+                "\n\nClick \"Retry\" to reauthenticate or close this window to quit the application.")
+    dlg.setStandardButtons(
+        QMessageBox.StandardButton.Retry | QMessageBox.StandardButton.Close
+    )
+    dlg.setDefaultButton(QMessageBox.StandardButton.Retry)
+    dlg.setWindowFlags(
+        dlg.windowFlags() | Qt.WindowType.WindowStaysOnTopHint
+    )
+    
+    result = dlg.exec()
+    if result == QMessageBox.StandardButton.Close:
+        print("Closing")
+        exit(1)
+    else:
+        print("Retrying")
+        return await getAuthCode()
+
+
+
 
 def generateTokens(auth_code):
     buffer = BytesIO()
@@ -361,9 +261,11 @@ async def getAuthToken():
     async with lock:
         #print("get token!!!!!!")
         if Auth.auth_token == None: 
-            getAuthCode()
+            await getAuthCode()
         
         return Auth.auth_token
-            
+
+async def initWindow(window):
+    Auth.window = window
    
         

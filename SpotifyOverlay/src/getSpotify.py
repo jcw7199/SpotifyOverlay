@@ -11,7 +11,6 @@ from io import BytesIO
 import aiocurl
 currentSong = ""
 
-
 async def getActiveDeviceID() -> tuple: 
     """
     Gets the active device ID and returns it along with the device's active (true or false) state.
@@ -24,6 +23,7 @@ async def getActiveDeviceID() -> tuple:
     authHeader =  [f"Authorization: Bearer {acces_token}"]
     buffer = BytesIO()
     c = aiocurl.Curl()
+    status = None
 
     c.setopt(c.URL, "https://api.spotify.com/v1/me/player/devices")
     c.setopt(c.WRITEDATA, buffer)
@@ -81,6 +81,8 @@ async def getActiveDevice() -> tuple:
     authHeader =  [f"Authorization: Bearer {acces_token}"]
     buffer = BytesIO()
     c = aiocurl.Curl()
+    status = None
+
     c.setopt(c.URL, "https://api.spotify.com/v1/me/player/devices")
     c.setopt(c.WRITEDATA, buffer)
     c.setopt(c.HTTPHEADER, authHeader)
@@ -135,6 +137,7 @@ async def getCurrentPlayingType() -> str:
 
     buffer = BytesIO()
     c = aiocurl.Curl()
+    status = None
 
     c.setopt(c.URL, "https://api.spotify.com/v1/me/player/currently-playing")
     c.setopt(c.WRITEDATA, buffer)
@@ -174,6 +177,7 @@ async def getCurrentSongID() -> str:
 
     buffer = BytesIO()
     c = aiocurl.Curl()
+    status = None
 
     type = await getCurrentPlayingType()
 
@@ -223,7 +227,7 @@ async def getCurrentSongAndArtist() -> tuple:
     authHeader =  [f"Authorization: Bearer {acces_token}"]
     buffer = BytesIO()
     c = aiocurl.Curl()    
-
+    status = None
     playingType = await getCurrentPlayingType()
     if playingType == "episode":
         c.setopt(aiocurl.URL, "https://api.spotify.com/v1/me/player/currently-playing?additional_types=episode")
@@ -277,7 +281,7 @@ async def getProgressAndDuration() -> tuple:
     authHeader =  [f"Authorization: Bearer {acces_token}"]
     buffer = BytesIO()
     c = aiocurl.Curl()
-
+    status = None
 
     playingType = await getCurrentPlayingType()
     if playingType == "episode":
@@ -328,7 +332,7 @@ async def seekToPosition(position: int) -> bool:
     authHeader =  [f"Authorization: Bearer {acces_token}"]    
     buffer = BytesIO()
     c = aiocurl.Curl()
-
+    status = None
     device = await getActiveDeviceID()
     device = device[0]
     if device == None:
@@ -384,7 +388,7 @@ async def restartDevice() -> bool:
     authHeader =  [f"Authorization: Bearer {acces_token}"]
     id = await getActiveDeviceID()
     id = id[0]
-    
+    status = None
     #no device found, return none.
     if id == None:
         print("restartDevice error: no device found to restart.")
@@ -435,7 +439,7 @@ async def getPlaybackState() -> bool:
     :return: bool representing true for playing and false for not.
     """
 
-
+    status = None
     buffer = BytesIO()
     c = aiocurl.Curl()
     acces_token = await auth.getAuthToken()
@@ -471,7 +475,7 @@ async def startPlayback() -> bool:
 
     :return: bool representing if starting playback was successful or not.
     """
-
+    status = None
     acces_token = await auth.getAuthToken()
     authHeader =  [f"Authorization: Bearer {acces_token}"]
     
@@ -536,7 +540,7 @@ async def pausePlayback() -> bool:
 
     :return: bool representing if pausing playback was successful or not.
     """
-
+    status = None
     acces_token = await auth.getAuthToken()
     authHeader =  [f"Authorization: Bearer {acces_token}"]
     
@@ -602,6 +606,7 @@ async def restartSong() -> bool:
 
     :return: bool representing if restart was successful or not.
     """
+    status = None
     acces_token = await auth.getAuthToken()
     authHeader =  [f"Authorization: Bearer {acces_token}"]    
     buffer = BytesIO()
@@ -651,6 +656,7 @@ async def nextPlayback() -> bool:
 
     :return: bool representing if skipping to next track was successful or not.
     """
+    status = None
     acces_token = await auth.getAuthToken()
     authHeader =  [f"Authorization: Bearer {acces_token}"]    
     buffer = BytesIO()
@@ -699,6 +705,7 @@ async def previousPlayback() -> bool:
 
     :return: bool representing if going back to previous track was successful or not.
     """
+    status = None
     buffer = BytesIO()
     c = aiocurl.Curl()
     acces_token = await auth.getAuthToken()
@@ -740,7 +747,7 @@ async def previousPlayback() -> bool:
     else:
         return True 
     
-async def volumeChanageable() -> bool:
+async def volumeChangeable() -> bool:
     """
     Determines if current playing device supports changing volume through API.
 
@@ -753,7 +760,7 @@ async def volumeChanageable() -> bool:
         return device['supports_volume']
     else:
         print("volumeChanageable - no device found.")
-        return False
+        return None
     
 async def volumeDown() -> bool:
     """
@@ -761,7 +768,10 @@ async def volumeDown() -> bool:
 
     :return: bool representing if volume lowering was successful or not.
     """
-    if volumeChanageable() == True:
+    
+
+    changeable = await volumeChangeable()
+    if changeable == True:
         buffer = BytesIO()
         c = aiocurl.Curl()
         acces_token = await auth.getAuthToken()
@@ -779,7 +789,9 @@ async def volumeDown() -> bool:
                 'device_id': id,
         }
         
-        c.setopt(c.URL, f"https://api.spotify.com/v1/me/player/volume?volume_percent={getActiveDevice()[0]['volume_percent'] - 10}")
+        device = await getActiveDevice()
+        status = None
+        c.setopt(c.URL, f"https://api.spotify.com/v1/me/player/volume?volume_percent={device[0]['volume_percent'] - 10}")
         c.setopt(c.WRITEDATA, buffer)
         c.setopt(c.POSTFIELDS, urllib.parse.urlencode(params))
         c.setopt(c.CUSTOMREQUEST, "PUT")
@@ -812,7 +824,8 @@ async def volumeUp() -> bool:
 
     :return: bool representing if volume raising was successful or not.
     """
-    if volumeChanageable() == True:
+    changeable = await volumeChangeable()
+    if changeable == True:
         #print("volume changable")
         buffer = BytesIO()
         c = aiocurl.Curl()
@@ -832,7 +845,10 @@ async def volumeUp() -> bool:
         }
         #print("params = ", urllib.parse.urlencode(params))
         
-        c.setopt(c.URL, f"https://api.spotify.com/v1/me/player/volume?volume_percent={getActiveDevice()[0]['volume_percent'] + 10}")
+        device = await getActiveDevice()
+        status = None
+
+        c.setopt(c.URL, f"https://api.spotify.com/v1/me/player/volume?volume_percent={device[0]['volume_percent'] + 10}")
         c.setopt(c.WRITEDATA, buffer)
         c.setopt(c.POSTFIELDS, urllib.parse.urlencode(params))
         c.setopt(c.CUSTOMREQUEST, "PUT")
@@ -864,6 +880,7 @@ async def getShuffleState() -> str:
 
     :return: string representing the shuffle state (e.g. "Unshuffled").
     """
+    status = None
 
     buffer = BytesIO()
     c = aiocurl.Curl()
@@ -911,6 +928,7 @@ async def shuffleOff() -> bool:
 
     :return: bool representing if turning shuffle off was successful.
     """
+    status = None
         
     buffer = BytesIO()
     c = aiocurl.Curl()
@@ -962,7 +980,7 @@ async def shuffleOn() -> bool:
 
     :return: bool representing if turning shuffle on was successful.
     """
-
+    status = None
     buffer = BytesIO()
     c = aiocurl.Curl()
     acces_token = await auth.getAuthToken()
@@ -1030,7 +1048,7 @@ async def getSongLikedState() -> bool:
 
     :return: bool representing if a track is liked (e.g. True for liked),
     """  
-
+    status = None
     acces_token = await auth.getAuthToken()
     authHeader =  [f"Authorization: Bearer {acces_token}"]
 
@@ -1089,7 +1107,7 @@ async def likeSong() -> bool:
 
     :return: bool representing if liking the track was successful.
     """   
-
+    status = None
     acces_token = await auth.getAuthToken()
     authHeader =  [f"Authorization: Bearer {acces_token}"]
 
@@ -1154,7 +1172,7 @@ async def unlikeSong() -> bool:
 
     :return: bool representing if unliking the track was successful.
     """   
-
+    status = None
     acces_token = await auth.getAuthToken()
     authHeader =  [f"Authorization: Bearer {acces_token}"]
 
@@ -1239,7 +1257,7 @@ async def getRepeatState() -> str:
 
     buffer = BytesIO()
     c = aiocurl.Curl()
-
+    status = None
     c.setopt(c.URL, "https://api.spotify.com/v1/me/player")
     c.setopt(c.WRITEDATA, buffer)
     c.setopt(c.HTTPHEADER, authHeader)
@@ -1276,6 +1294,7 @@ async def toggleRepeat() -> bool:
 
     :return: bool representing if toggling repeat was successful.
     """
+    status = None
     acces_token = await auth.getAuthToken()
     authHeader =  [f"Authorization: Bearer {acces_token}"]
     playingType = await getCurrentPlayingType()
