@@ -363,7 +363,7 @@ async def seekToPosition(position: int) -> bool:
     if status == 401:
         print("seekToPosition - refreshing token")
         await auth.getNewTokens()
-        return await seekToPosition()
+        return await seekToPosition(position)
 
     #catch all for http errors
     elif status != 200 or status != 204:
@@ -865,7 +865,7 @@ async def volumeUp() -> bool:
         if status == 401:
             print("volumeUp - refresh tokens")
             await auth.getNewTokens()
-            return await volumeDown()
+            return await volumeUp()
         elif status == 204 or status == 200:
             print("turning volume up...")
             return True
@@ -964,7 +964,7 @@ async def shuffleOff() -> bool:
     if status == 401:
         print("shuffleOff- refreshing tokens")
         await auth.getNewTokens()
-        return shuffleOff()
+        return await shuffleOff()
     elif status == 204 or status == 200:
         print("Turning shuffle off...")
         return True
@@ -1015,7 +1015,7 @@ async def shuffleOn() -> bool:
     if status == 401:
         print("shuffleOn - refreshing tokens")
         await auth.getNewTokens()
-        return shuffleOn()
+        return await shuffleOn()
     elif status == 204 or status == 200:
         print("turning shuffle on...:")
         return True
@@ -1056,10 +1056,11 @@ async def getSongLikedState() -> bool:
     c = aiocurl.Curl()
 
     type = await getCurrentPlayingType()
+    songID = await getCurrentSongID()
     if type  == "track":
-        c.setopt(c.URL, f"https://api.spotify.com/v1/me/tracks/contains?ids={await getCurrentSongID()}")
+        c.setopt(c.URL, f"https://api.spotify.com/v1/me/library/contains?uris=spotify:track:{songID}")
     elif type == 'episode':
-        c.setopt(c.URL, f"https://api.spotify.com/v1/me/episodes/contains?ids={await getCurrentSongID()}")
+        c.setopt(c.URL, f"https://api.spotify.com/v1/me/library/contains?uris=spotify:episode:{songID}")
     else:
         #print("Cant get liked state")
         return False
@@ -1121,7 +1122,7 @@ async def likeSong() -> bool:
     
     ids = await getCurrentSongID()
 
-    if ids != None:
+    if ids == None:
         print("likeSong error - no device found")
         return False
     
@@ -1130,10 +1131,12 @@ async def likeSong() -> bool:
     }    
 
     type = await getCurrentPlayingType()
+    songID = await getCurrentSongID()
+
     if type == "track":
-        c.setopt(c.URL, f"https://api.spotify.com/v1/me/tracks?ids={getCurrentSongID()}")
+        c.setopt(c.URL, f"https://api.spotify.com/v1/me/library?uris=spotify:track:{songID}")
     elif type == "episode":    
-        c.setopt(c.URL, f"https://api.spotify.com/v1/me/episodes?ids={getCurrentSongID()}")
+        c.setopt(c.URL, f"https://api.spotify.com/v1/me/episodes?uris=spotify:episode:{songID}")
     else:
         print("likeSong - can't get current track type.")
         return False
@@ -1155,7 +1158,7 @@ async def likeSong() -> bool:
     if status == 401:
         print("likeSong - refresh tokens") 
         await auth.getNewTokens()
-        return likeSong()
+        return await likeSong()
     elif status == 200 or status == 204:
         print("Liking track...")
         return True
@@ -1185,7 +1188,7 @@ async def unlikeSong() -> bool:
 
     ids = await getCurrentSongID()
 
-    if ids != None:
+    if ids == None:
         print("unlikeSong error - no device found")
         return False
     
@@ -1195,10 +1198,12 @@ async def unlikeSong() -> bool:
   
 
     type = await getCurrentPlayingType()
+    songID = await getCurrentSongID()
+
     if type == "track":
-        c.setopt(c.URL, f"https://api.spotify.com/v1/me/tracks?ids={await getCurrentSongID()}")
+        c.setopt(c.URL, f"https://api.spotify.com/v1/me/library?uris=spotify:track:{songID}")
     elif type == "episode":    
-        c.setopt(c.URL, f"https://api.spotify.com/v1/me/episodes?ids={await getCurrentSongID()}")
+        c.setopt(c.URL, f"https://api.spotify.com/v1/me/library?uris=spotify:episode:{songID}")
     else:
         print("unlikeSong error - cant determine track type.")
         return False
@@ -1236,7 +1241,7 @@ async def toggleLikeSong() -> bool:
 
     :return: bool representing if toggling like was successful.
     """
-    state = getSongLikedState()
+    state = await getSongLikedState()
 
     if state == True:
         return await unlikeSong()
@@ -1273,7 +1278,7 @@ async def getRepeatState() -> str:
     if status == 401:
         print("getRepeatState - refreshing tokens")
         await auth.getNewTokens()
-        return getRepeatState()
+        return await getRepeatState()
     
     elif status == 200 or status == 204:
         if buffer:

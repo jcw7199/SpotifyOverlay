@@ -1,4 +1,0 @@
-([('SpotifyOverlay',
-   '/Users/use/Documents/Projects/SpotifyOverlay - '
-   'git/SpotifyOverlay/src/dist/SpotifyOverlay',
-   'EXECUTABLE')],)
